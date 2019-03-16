@@ -50,5 +50,5 @@ Date:   Sat Mar 16 20:28:40 2019 +0200
  tiedosto.txt | 0
  1 file changed, 0 insertions(+), 0 deletions(-)
 
-                                                                                                                                                                                                 96,1          Bot
+                                                 editoidaan hiukan                                                                                                                                                96,1          Bot
 
