@@ -6,3 +6,11 @@ As Kanye West said:
 
 > elämme tulevaisuudessa
 > eli nykyisyys on menneissyyttä hmmm :DD.
+
+
+
+gitlog:
+https://github.com/OttoLasma/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt
+
+komentorivi:
+https://github.com/OttoLasma/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt
