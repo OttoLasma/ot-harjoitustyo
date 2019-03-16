@@ -1,0 +1,54 @@
+    paljon tekstiä
+
+ tiedosto.txt | 67 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 66 insertions(+), 1 deletion(-)
+
+commit 1d1695901992bf5b67a8567ea7a2ce09ab96d45e
+Author: Otto Lasma <otto.lasma@aalto.fi>
+Date:   Sat Mar 16 20:42:16 2019 +0200
+
+    stuffin lis'äys
+
+ stuff/stuffiintiedosto | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 1b44e25778ad4ed9c5fdf1fc89b97e455a96d46d
+Author: Otto Lasma <otto.lasma@aalto.fi>
+Date:   Sat Mar 16 20:39:46 2019 +0200
+
+    kahden muokkaus
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 9bc8fb50df28a6a23fa5cbc5fff08d1dec8312df
+Author: Otto Lasma <otto.lasma@aalto.fi>
+Date:   Sat Mar 16 20:38:43 2019 +0200
+
+    kolmas
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 5005b30e9e4955a8dbf1d00f4931f5b1eea05976
+Author: Otto Lasma <otto.lasma@aalto.fi>
+Date:   Sat Mar 16 20:35:13 2019 +0200
+
+    muutos ja lisays
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 874e8f1dc2102e9e78c2f2fd17a8662c8a5dc26f
+Author: Otto Lasma <otto.lasma@aalto.fi>
+Date:   Sat Mar 16 20:28:40 2019 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+                                                                                                                                                                                                 96,1          Bot
+
