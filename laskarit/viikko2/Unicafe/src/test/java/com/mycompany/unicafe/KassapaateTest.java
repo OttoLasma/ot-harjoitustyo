@@ -19,10 +19,12 @@ import static org.junit.Assert.*;
 public class KassapaateTest {
 
     Kassapaate paate;
+    Maksukortti kortti;
 
     @Before
     public void setUp() {
         paate = new Kassapaate();
+        kortti = new Maksukortti(1000);
     }
     @Test
     public void luotuPaateOnOlemassa() {
@@ -33,7 +35,7 @@ public class KassapaateTest {
         int testi = paate.kassassaRahaa();
         int testi2 = paate.maukkaitaLounaitaMyyty() + paate.edullisiaLounaitaMyyty();
         assertEquals(100000, testi);   
-        assertEquals(0, testi);
+        assertEquals(0, testi2);
     }
     @Test
     public void maksuEiRiittavaEdullisesti(){
@@ -68,32 +70,92 @@ public class KassapaateTest {
         assertEquals(1, luku2);
         assertEquals(100400, luku3);
     }
-    public void 
-    
-    
-    
-    
-    
-    
-
-    public KassapaateTest() {
+    @Test
+    public void kortillaTarpeeksiRahaaEdullinen(){
+        boolean luku = paate.syoEdullisesti(kortti);
+        int luku2 = kortti.saldo();
+        
+        assertEquals(true, luku);
+        assertEquals(760, luku2);
     }
-
-    @BeforeClass
-    public static void setUpClass() {
+    @Test
+    public void kortillaTarpeeksiRahaaMaukkaasti(){
+        boolean luku = paate.syoEdullisesti(kortti);
+        int luku2 = kortti.saldo();
+        assertEquals(true, luku);
+        assertEquals(600, luku2);
     }
-
-    @AfterClass
-    public static void tearDownClass() {
+    @Test
+    public void kortillaTarpeeksiRahaaEdullinenLounaidenMaaraKasvaa(){
+        boolean luku = paate.syoEdullisesti(kortti);
+        boolean luku2 = paate.syoMaukkaasti(kortti);
+        int luku3 = paate.edullisiaLounaitaMyyty() + paate.maukkaitaLounaitaMyyty();
+        assertEquals(2, luku3);
+        
     }
-
-    @After
-    public void tearDown() {
+    @Test
+    public void kortillaEitarpeeksiRahaaArvoEiMuutuJaPalauttaaFalseEdullisesti(){
+        
+        paate.syoEdullisesti(kortti);
+        paate.syoEdullisesti(kortti);
+        paate.syoEdullisesti(kortti);
+        paate.syoEdullisesti(kortti);
+        boolean luku = paate.syoEdullisesti(kortti);
+        int luku2 = kortti.saldo();
+        assertEquals(false, luku);
+        assertEquals(40, luku2);
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void kortillaEitarpeeksiRahaaArvoEiMuutuJaPalauttaaFalseMaukkaasti(){
+        paate.syoMaukkaasti(kortti);
+        paate.syoMaukkaasti(kortti);
+        boolean luku = paate.syoMaukkaasti(kortti);   
+        int luku2 = kortti.saldo();
+        assertEquals(false, luku);
+        assertEquals(200, luku2);
+    }
+    @Test
+    public void kortillaEitarpeeksiRahaaLouanidenMaaraEiMuutu(){
+        paate.syoEdullisesti(kortti);
+        paate.syoEdullisesti(kortti);
+        paate.syoEdullisesti(kortti);
+        paate.syoEdullisesti(kortti);
+        paate.syoEdullisesti(kortti);
+        paate.syoMaukkaasti(kortti);
+        int luku2 = paate.edullisiaLounaitaMyyty() + paate.maukkaitaLounaitaMyyty();
+        assertEquals(4, luku2);
+        
+    }
+    @Test
+    public void kassassaOlevaSaldoEiMuutuKunOstetaanKortilla(){
+        paate.syoEdullisesti(kortti);
+        paate.syoEdullisesti(kortti);
+        paate.syoEdullisesti(kortti);
+        paate.syoEdullisesti(kortti);
+        paate.syoEdullisesti(kortti);
+        paate.syoMaukkaasti(kortti);
+        int luku = paate.kassassaRahaa();
+        assertEquals(100000, luku);
+    }
+    @Test
+    public void kassassaOlevaRahaMaaraMuuttuuJaKortillaOlevaRahaMaaraMuuttuKunLadataanRahaa(){
+        paate.lataaRahaaKortille(kortti, 1000);
+        int luku1 = kortti.saldo();
+        int luku2 = paate.kassassaRahaa();
+        assertEquals(2000, luku1);
+        assertEquals(101000, luku2);
+    }
+    @Test
+    public void kortillaOlevaMaaraJaKassassaOlevaMaaraEiMuutuKunLadataanNegatiivinenSumma(){
+        
+        paate.lataaRahaaKortille(kortti, -1000);
+        int luku1 = kortti.saldo();
+        int luku2 = paate.kassassaRahaa();
+        assertEquals(1000, luku1);
+        assertEquals(100000, luku2);
+    }
+    
+    
+    
+    
 }
