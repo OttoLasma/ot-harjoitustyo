@@ -10,5 +10,4 @@
 
 - [Vaatimusmäärittely](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/vaatimumaarittely.md)
 - [Työaikakirjapito](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/tyoaikakirjanpito.md)
-
-
+- [testikattavuus](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/laskarit/viikko2/testikattavuus.png)
