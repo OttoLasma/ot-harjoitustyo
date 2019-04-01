@@ -10,7 +10,9 @@ Sovelluksen tarkoitus on mahdollistaa kyytien lisäämisen ja toisaalta myös eh
 
 <h2> Komentorivitoiminnot </h2>
 <h3> Testaus </h3>
-testit suoritetaan komennolla:
+
+Testit suoritetaan komennolla:
+
 ```
 mvn test
 ```
