@@ -11,7 +11,7 @@ Sovelluksen tarkoitus on mahdollistaa kyytien lisäämisen ja toisaalta myös eh
 <h2> Komentorivitoiminnot </h2>
 <h3> Testaus </h3>
 
-Testit suoritetaan komennolla (ei toimi itselläni komentorivillä - NetBeans:ssä tosin toimii):
+Testit suoritetaan komennolla :
 
 ```
 mvn test
