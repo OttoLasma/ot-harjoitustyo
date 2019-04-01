@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.ridesharing;
+package RideSharing;
 
 /**
  *
@@ -34,7 +34,8 @@ public class AppUi  {
     
     
 
-    private static void prepareDatabases() {
+    /*private static void prepareDatabases() {
+        
         try (Connection conn = DriverManager.getConnection("jdbc:h2:./RideSharingDatabases", "sa", "")) {         
             conn.prepareStatement("DROP TABLE User IF EXISTS;").executeUpdate();
             conn.prepareStatement("CREATE TABLE User(id integer auto_increment, name varchar(255), email varchar(255), phone varchar(255), primary key(id));").executeUpdate();
@@ -44,5 +45,5 @@ public class AppUi  {
             Logger.getLogger(AppUi.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-    }
+    }*/
 }

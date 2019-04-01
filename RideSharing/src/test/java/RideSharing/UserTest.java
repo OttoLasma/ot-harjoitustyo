@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.mycompany.ridesharing;
+
+package RideSharing;
 
 
 
@@ -12,6 +8,7 @@ package com.mycompany.ridesharing;
  * @author ottlasma
  */
 
+import RideSharing.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
