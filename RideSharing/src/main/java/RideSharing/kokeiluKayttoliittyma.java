@@ -19,8 +19,13 @@ import java.util.Scanner;
  * @author ottlasma
  */
 public class kokeiluKayttoliittyma {
+    private static Scanner scanner;
     
-    public static void start(Scanner scanner){
+    public kokeiluKayttoliittyma(Scanner scanner){
+        this.scanner = scanner;
+    }
+    
+    public static void start(){
         ArrayList<User> users = new ArrayList<>();
         ArrayList<Ride> rides = new ArrayList<>();
         while(true){

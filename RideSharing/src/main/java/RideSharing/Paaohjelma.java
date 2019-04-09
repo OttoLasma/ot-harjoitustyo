@@ -23,11 +23,12 @@ import java.util.logging.Logger;
 
 
 
-public class AppUi  {
+public class Paaohjelma  {
     
     public static void main(String[] args)  {
         Scanner scanner = new Scanner(System.in);
-        kokeiluKayttoliittyma.start(scanner);
+        kokeiluKayttoliittyma kokeKayttoliittyma = new kokeiluKayttoliittyma(scanner);
+        kokeiluKayttoliittyma.start();
     }
     
     
