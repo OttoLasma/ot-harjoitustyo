@@ -3,69 +3,75 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RideSharing;
+package ridesharing.domain;
 
 /**
  *
  * @author ottlasma
  */
 public class Ride {
+
     private int id;
-    private String DepartureLocation;
-    private String DestinationLocation;
+    private String departureLocation;
+    private String destinationLocation;
     private int price;
     private int seatsAvailable;
     private String departureDate;
     private int available;
-    private int user_id;
-    public Ride(String DepartureLocation, String DestinationLocation, int price, int seatsAvailable, String departureDate, int user_id){
-        this.DepartureLocation = DepartureLocation;
-        this.DestinationLocation = DestinationLocation;
+    private int userId;
+
+    public Ride(String departureLocation, String destinationLocation, int price, int seatsAvailable, String departureDate, int userId) {
+        this.departureLocation = departureLocation;
+        this.destinationLocation = destinationLocation;
         this.price = price;
         this.seatsAvailable = seatsAvailable;
         this.departureDate = departureDate;
         this.available = 0;
-        this.user_id = user_id;
+        this.userId = userId;
     }
-    
-    public void setUser_id(int user){
-        this.user_id =user;
+
+    public void setUserId(int user) {
+        this.userId = user;
     }
-    public int getUser_id(){
-        return this.user_id;
+
+    public int getUserId() {
+        return this.userId;
     }
-    public void setId(int id){
+
+    public void setId(int id) {
         this.id = id;
     }
-    public int getId(){
+
+    public int getId() {
         return this.id;
     }
+
     /**
      * @return the DepartureLocation
      */
     public String getDepartureLocation() {
-        return DepartureLocation;
+        return departureLocation;
     }
 
     /**
-     * @param DepartureLocation the DepartureLocation to set
+     * @param departureLocation the DepartureLocation to set
      */
-    public void setDepartureLocation(String DepartureLocation) {
-        this.DepartureLocation = DepartureLocation;
+    public void setDepartureLocation(String departureLocation) {
+        this.departureLocation = departureLocation;
     }
 
     /**
      * @return the DestinationLocation
      */
     public String getDestinationLocation() {
-        return DestinationLocation;
+        return destinationLocation;
     }
 
     /**
-     * @param DestinationLocation the DestinationLocation to set
+     * @param destinationLocation the DestinationLocation to set
      */
-    public void setDestinationLocation(String DestinationLocation) {
-        this.DestinationLocation = DestinationLocation;
+    public void setDestinationLocation(String destinationLocation) {
+        this.destinationLocation = destinationLocation;
     }
 
     /**
@@ -110,7 +116,6 @@ public class Ride {
         this.departureDate = departureDate;
     }
 
- 
     public int getAvailable() {
         return available;
     }
@@ -118,9 +123,10 @@ public class Ride {
     public void setAvailable(int available) {
         this.available = available;
     }
+
     @Override
-    public String toString(){
-        return this.DepartureLocation + " "+ " " + this.DestinationLocation +" "+" " + this.price + " " + this.seatsAvailable;
+    public String toString() {
+        return this.departureLocation + " " + " " + this.destinationLocation + " " + " " + this.price + " " + this.seatsAvailable;
     }
-    
+
 }

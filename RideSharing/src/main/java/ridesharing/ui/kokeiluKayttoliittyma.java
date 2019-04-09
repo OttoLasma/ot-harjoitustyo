@@ -1,8 +1,12 @@
 
-package RideSharing;
+package ridesharing.ui;
 
 
 
+import ridesharing.domain.Ride;
+import ridesharing.dao.RideDao;
+import ridesharing.domain.User;
+import ridesharing.dao.UserDao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-
-package RideSharing;
+package ridesharing.domain;
 
 public class User {
+
     private String name;
     private String surname;
     private String phone;
@@ -9,23 +9,25 @@ public class User {
     private int id;
     private String username;
     private String password;
-    public User(String name, String surname, String phone, String email, int id, String username, String password){
+
+    public User(String name, String surname, String phone, String email, int id, String username, String password) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.email = email;
-        this.id  =id;
+        this.id = id;
         this.username = username;
         this.password = password;
     }
-    public User(String name, String surname, String phone, String email, String username, String password){
+
+    public User(String name, String surname, String phone, String email, String username, String password) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.email = email;
         this.username = username;
         this.password = password;
-        
+
     }
 
     /**
@@ -125,14 +127,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof User)) {
             return false;
         }
-        
+
         User other = (User) obj;
         return username.equals(other.username);
     }
-    
+
 }

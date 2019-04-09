@@ -8,7 +8,7 @@ package RideSharing;
  * @author ottlasma
  */
 
-import RideSharing.User;
+import ridesharing.domain.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
