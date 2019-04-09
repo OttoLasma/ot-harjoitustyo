@@ -1,50 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package RideSharing;
-
-/**
- *
- * @author ottlasma
- */
-
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
-
-
-
-public class Paaohjelma  {
+@SpringBootApplication
+public class Paaohjelma  implements CommandLineRunner{
     
-    public static void main(String[] args)  {
-        Scanner scanner = new Scanner(System.in);
-        kokeiluKayttoliittyma kokeKayttoliittyma = new kokeiluKayttoliittyma(scanner);
-        kokeiluKayttoliittyma.start();
-    }
-    
-    
-    
-    
-
-    /*private static void prepareDatabases() {
+    public static void main(String[] args) throws SQLException {
+        SpringApplication.run(Paaohjelma.class);
         
-        try (Connection conn = DriverManager.getConnection("jdbc:h2:./RideSharingDatabases", "sa", "")) {         
-            conn.prepareStatement("DROP TABLE User IF EXISTS;").executeUpdate();
-            conn.prepareStatement("CREATE TABLE User(id integer auto_increment, name varchar(255), email varchar(255), phone varchar(255), primary key(id));").executeUpdate();
-            conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
-            conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departure_location varchar(255), destination_location varchar(255), free_spots integer, price integer, user_id integer, foreign key (user_id) references User(id), primary key(id));").executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(AppUi.class.getName()).log(Level.SEVERE, null, ex);
+    }
 
+
+    private void prepareDatabases() {  
+        try (Connection conn = DriverManager.getConnection("jdbc:h2:./RideSharingDatabases", "sa", "")) {         
+            conn.prepareStatement("DROP TABLE User IF EXISTS ;").executeUpdate();        
+            conn.prepareStatement("CREATE TABLE User(id integer auto_increment, name varchar(255),surname varchar(255), phone varchar(255), email varchar(255), username varchar(255), password varchar(255), primary key (id));").executeUpdate();
+            conn.prepareStatement("DROP TABLE Ride IF EXISTS ;").executeUpdate();
+            conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255),user_id integer, available integer, primary key (id), foreign key (user_id) references User(id));").executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Paaohjelma.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+    }
+    @Autowired
+    kokeiluKayttoliittyma tekstikayttoliittyma;
+
+    @Override
+    public void run(String... args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        prepareDatabases();
+        tekstikayttoliittyma.start(scanner);
+    }
 }

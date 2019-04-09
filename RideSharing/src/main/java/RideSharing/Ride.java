@@ -10,19 +10,35 @@ package RideSharing;
  * @author ottlasma
  */
 public class Ride {
+    private int id;
     private String DepartureLocation;
     private String DestinationLocation;
     private int price;
     private int seatsAvailable;
     private String departureDate;
-    private boolean available;
-    public Ride(String DepartureLocation, String DestinationLocation, int price, int seatsAvailable, String departureDate ){
+    private int available;
+    private int user_id;
+    public Ride(String DepartureLocation, String DestinationLocation, int price, int seatsAvailable, String departureDate, int user_id){
         this.DepartureLocation = DepartureLocation;
         this.DestinationLocation = DestinationLocation;
         this.price = price;
         this.seatsAvailable = seatsAvailable;
         this.departureDate = departureDate;
-        this.available = true;
+        this.available = 0;
+        this.user_id = user_id;
+    }
+    
+    public void setUser_id(int user){
+        this.user_id =user;
+    }
+    public int getUser_id(){
+        return this.user_id;
+    }
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
     }
     /**
      * @return the DepartureLocation
@@ -94,17 +110,12 @@ public class Ride {
         this.departureDate = departureDate;
     }
 
-    /**
-     * @return the available
-     */
-    public boolean isAvailable() {
+ 
+    public int getAvailable() {
         return available;
     }
 
-    /**
-     * @param available the available to set
-     */
-    public void setAvailable(boolean available) {
+    public void setAvailable(int available) {
         this.available = available;
     }
     @Override

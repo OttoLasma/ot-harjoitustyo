@@ -1,25 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package RideSharing;
 
-/**
- *
- * @author ottlasma
- */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/**
- *
- * @author ottlasma
- */
 public class User {
     private String name;
     private String surname;
@@ -37,12 +18,13 @@ public class User {
         this.username = username;
         this.password = password;
     }
-    public User(String name, String surname, String phone, String email, String username){
+    public User(String name, String surname, String phone, String email, String username, String password){
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.email = email;
         this.username = username;
+        this.password = password;
         
     }
 
