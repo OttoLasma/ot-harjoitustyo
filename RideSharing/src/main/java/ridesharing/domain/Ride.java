@@ -1,77 +1,80 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ridesharing.domain;
 
-/**
- *
- * @author ottlasma
- */
+
 public class Ride {
 
     private int id;
-    private String departureLocation;
-    private String destinationLocation;
+    private String departurelocation;
+    private String destinationlocation;
     private int price;
-    private int seatsAvailable;
-    private String departureDate;
+    private int seats;
+    private String date;
     private int available;
-    private int userId;
-
-    public Ride(String departureLocation, String destinationLocation, int price, int seatsAvailable, String departureDate, int userId) {
-        this.departureLocation = departureLocation;
-        this.destinationLocation = destinationLocation;
+    private int user_id;
+    
+    
+    public Ride(){
+        
+    }
+    public Ride(String departurelocation, String destinationlocation, int price, int seats, String date, int user_id) {
+        this.departurelocation = departurelocation;
+        this.destinationlocation = destinationlocation;
         this.price = price;
-        this.seatsAvailable = seatsAvailable;
-        this.departureDate = departureDate;
+        this.seats = seats;
+        this.date = date;
         this.available = 0;
-        this.userId = userId;
+        this.user_id = user_id;
+    }
+//conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
+//conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), user_id integer, available integer, primary key (id), foreign key (user_id) references User(id));").executeUpdate();
+
+    
+    @Override
+    public String toString() {
+        return this.getDeparturelocation() + " " + " " + this.getDestinationlocation() + " " + " " + this.getPrice() + " " + this.getSeats();
     }
 
-    public void setUserId(int user) {
-        this.userId = user;
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
     }
 
-    public int getUserId() {
-        return this.userId;
-    }
-
+    /**
+     * @param id the id to set
+     */
     public void setId(int id) {
         this.id = id;
     }
 
-    public int getId() {
-        return this.id;
+    /**
+     * @return the departurelocation
+     */
+    public String getDeparturelocation() {
+        return departurelocation;
     }
 
     /**
-     * @return the DepartureLocation
+     * @param departurelocation the departurelocation to set
      */
-    public String getDepartureLocation() {
-        return departureLocation;
+    public void setDeparturelocation(String departurelocation) {
+        this.departurelocation = departurelocation;
     }
 
     /**
-     * @param departureLocation the DepartureLocation to set
+     * @return the destinationlocation
      */
-    public void setDepartureLocation(String departureLocation) {
-        this.departureLocation = departureLocation;
+    public String getDestinationlocation() {
+        return destinationlocation;
     }
 
     /**
-     * @return the DestinationLocation
+     * @param destinationlocation the destinationlocation to set
      */
-    public String getDestinationLocation() {
-        return destinationLocation;
-    }
-
-    /**
-     * @param destinationLocation the DestinationLocation to set
-     */
-    public void setDestinationLocation(String destinationLocation) {
-        this.destinationLocation = destinationLocation;
+    public void setDestinationlocation(String destinationlocation) {
+        this.destinationlocation = destinationlocation;
     }
 
     /**
@@ -89,44 +92,59 @@ public class Ride {
     }
 
     /**
-     * @return the seatsAvailable
+     * @return the seats
      */
-    public int getSeatsAvailable() {
-        return seatsAvailable;
+    public int getSeats() {
+        return seats;
     }
 
     /**
-     * @param seatsAvailable the seatsAvailable to set
+     * @param seats the seats to set
      */
-    public void setSeatsAvailable(int seatsAvailable) {
-        this.seatsAvailable = seatsAvailable;
+    public void setSeats(int seats) {
+        this.seats = seats;
     }
 
     /**
-     * @return the departureDate
+     * @return the date
      */
-    public String getDepartureDate() {
-        return departureDate;
+    public String getDate() {
+        return date;
     }
 
     /**
-     * @param departureDate the departureDate to set
+     * @param date the date to set
      */
-    public void setDepartureDate(String departureDate) {
-        this.departureDate = departureDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
+    /**
+     * @return the available
+     */
     public int getAvailable() {
         return available;
     }
 
+    /**
+     * @param available the available to set
+     */
     public void setAvailable(int available) {
         this.available = available;
     }
 
-    @Override
-    public String toString() {
-        return this.departureLocation + " " + " " + this.destinationLocation + " " + " " + this.price + " " + this.seatsAvailable;
+    /**
+     * @return the user_id
+     */
+    public int getUser_id() {
+        return user_id;
+    }
+
+    /**
+     * @param user_id the user_id to set
+     */
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
 }

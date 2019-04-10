@@ -1,7 +1,4 @@
-
 package ridesharing.ui;
-
-
 
 import ridesharing.domain.Ride;
 import ridesharing.dao.RideDao;
@@ -13,33 +10,35 @@ import java.util.List;
 import java.util.Scanner;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+//@ComponentScan({"ridesharing.dao"})
 @Component
 public class kokeiluKayttoliittyma {
+
     @Autowired
     RideDao rideDao;
     @Autowired
     UserDao userDao;
     private Scanner scanner;
-    
-    
-    public kokeiluKayttoliittyma(){
-        
-          
+
+    public kokeiluKayttoliittyma() {
+
     }
-    public void start(Scanner scanner) throws SQLException{
+
+    public void start(Scanner scanner) throws SQLException {
         this.scanner = scanner;
-        while(true){
+        while (true) {
             System.out.println("Commands: ");
             System.out.println(" x - exit");
             System.out.println(" 1 - Sign up");
             System.out.println(" 2 - Log in");
             String command = scanner.nextLine();
-            if(command.equals("x")){
+            if (command.equals("x")) {
                 break;
             }
-            if(command.equals("1")){
+            if (command.equals("1")) {
                 //List<User> list = userDao.list();
                 /*List<String> usernames = new ArrayList<>();
                 for(User user : list){
@@ -55,7 +54,7 @@ public class kokeiluKayttoliittyma {
                 System.out.println("Phone");
                 String phone = scanner.nextLine();
                 System.out.println("Username");
-                String username  = scanner.nextLine();
+                String username = scanner.nextLine();
                 /*if(usernames.contains(username)){
                     System.out.println("This username is already taken");
                     while(true){
@@ -67,41 +66,42 @@ public class kokeiluKayttoliittyma {
                             break;
                         }
                     }
-                }   */         
+                }   */
                 System.out.println("Password");
-                String password  = scanner.nextLine();
+                String password = scanner.nextLine();
                 User user = new User(name, surname, phone, email, username, password); // add to database table user (password information is included when javafx is implemented)
                 userDao.create(user);
                 features(user);
             }
-            if(command.equals("2")){
+            if (command.equals("2")) {
                 System.out.println("Username");
                 String username = scanner.nextLine();
                 System.out.println("password");
                 String password = scanner.nextLine();
-                for(User user :userDao.list()){
-                    if(user.getUsername().equals(username)){
-                        if(user.getPassword().equals(password)){
+                for (User user : userDao.list()) {
+                    if (user.getUsername().equals(username)) {
+                        if (user.getPassword().equals(password)) {
                             features(user);
                         }
                     }
                 }
                 System.out.println("Incorrect username or password");
-                start(scanner);             
-            }         
+                start(scanner);
+            }
         }
     }
-    private void features(User user) throws SQLException{ 
-        while (true){
+
+    private void features(User user) throws SQLException {
+        while (true) {
             System.out.println("Commands: ");
             System.out.println(" 1 - Add new ride");
             System.out.println(" 2 - List all available rides");
             System.out.println(" x - Log out");
             String command = scanner.nextLine();
-            if(command.equals("x")){
+            if (command.equals("x")) {
                 start(scanner);
             }
-            if(command.equals("1")){
+            if (command.equals("1")) {
                 System.out.println("Provide the needed information below in order to add new ride:");
                 System.out.println("Location of departure");
                 String departure = scanner.nextLine();
@@ -112,18 +112,18 @@ public class kokeiluKayttoliittyma {
                 System.out.println("Number of available rides");
                 int seats = Integer.parseInt(scanner.nextLine());
                 System.out.println("Estimated Time and date of the departure (mm/dd-hh/mm)");
-                String date  = scanner.nextLine();
+                String date = scanner.nextLine();
                 Ride ride = new Ride(departure, destination, price, seats, date, user.getId()); // add to database table ride (password information is included when javafx is implemented)
                 rideDao.create(ride);
             }
-            if(command.equals("2")){
-                for(Ride ride : rideDao.list()){
-                    if(ride.getAvailable() == 0){
+            if (command.equals("2")) {
+                for (Ride ride : rideDao.list()) {
+                    if (ride.getAvailable() == 0) {
                         System.out.println(ride);
                     }
                 }
             }
-            
+
         }
     }
 }

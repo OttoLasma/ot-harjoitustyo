@@ -65,13 +65,10 @@ public class UserDao implements RideSharingDao<User, Integer> {
 
     @Override
     public List<User> list() throws SQLException {
-        List<User> lista = jdbcTemplate.query(
+        return jdbcTemplate.query(
                 "SELECT * FROM User",
                 new BeanPropertyRowMapper<>(User.class));
-        if (lista.isEmpty()) {
-            return new ArrayList<User>();
-        }
-        return lista;
+        
     }
 }
 /*

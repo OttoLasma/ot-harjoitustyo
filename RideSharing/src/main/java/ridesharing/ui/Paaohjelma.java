@@ -1,5 +1,5 @@
-
 package ridesharing.ui;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,38 +11,32 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class Paaohjelma  implements CommandLineRunner{
-    
+
+@SpringBootApplication(scanBasePackages = {"ridesharing.ui", "ridesharing.domain", "ridesharing.dao"})
+public class Paaohjelma implements CommandLineRunner {
+
     public static void main(String[] args) throws SQLException {
         SpringApplication.run(Paaohjelma.class);
-        
-    }/*
-try (Connection conn = DriverManager.getConnection("jdbc:h2:./henkilotietokanta", "sa", "")) {
-            conn.prepareStatement("DROP TABLE Henkilo IF EXISTS;").executeUpdate();
-            conn.prepareStatement("CREATE TABLE Henkilo(id serial, nimi varchar(255));").executeUpdate();
-            conn.prepareStatement("INSERT INTO Henkilo (nimi) VALUES " + nimet + ";").executeLargeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(LisaysJdbcSovellus.class.getName()).log(Level.SEVERE, null, ex);
-        }
-*/
-    private void prepareDatabases() {  
-        try (Connection conn = DriverManager.getConnection("jdbc:h2:./RideSharingDatabases", "sa", "")) {         
-            conn.prepareStatement("DROP TABLE User IF EXISTS;").executeUpdate();        
-            conn.prepareStatement("CREATE TABLE User(id integer auto_increment, name varchar(255),surname varchar(255), phone varchar(255), email varchar(255), username varchar(255), password varchar(255), primary key (id));").executeUpdate();
-            conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
-            conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255),user_id integer, available integer, primary key (id), foreign key (user_id) references User(id));").executeLargeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(Paaohjelma.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     @Autowired
     kokeiluKayttoliittyma tekstikayttoliittyma;
 
     @Override
     public void run(String... args) throws Exception {
-        Scanner scanner = new Scanner(System.in);
         prepareDatabases();
+        Scanner scanner = new Scanner(System.in);
         tekstikayttoliittyma.start(scanner);
+    }
+
+    private void prepareDatabases() {
+        try (Connection conn = DriverManager.getConnection("jdbc:h2:./RideSharingDatabases", "sa", "")) {
+            System.out.println("fjadfa");
+            conn.prepareStatement("DROP TABLE User IF EXISTS;").executeUpdate();
+            conn.prepareStatement("CREATE TABLE User(id integer auto_increment, name varchar(255), surname varchar(255), phone varchar(255), email varchar(255), username varchar(255), password varchar(255), primary key (id));").executeUpdate();
+            conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
+            conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), user_id integer, available integer, primary key (id), foreign key (user_id) references User(id));").executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Paaohjelma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

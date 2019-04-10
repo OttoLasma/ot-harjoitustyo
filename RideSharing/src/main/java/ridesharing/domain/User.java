@@ -1,25 +1,18 @@
 package ridesharing.domain;
 
 public class User {
-
+    private int id;
     private String name;
     private String surname;
     private String phone;
     private String email;
-    private int id;
     private String username;
     private String password;
 
-    public User(String name, String surname, String phone, String email, int id, String username, String password) {
-        this.name = name;
-        this.surname = surname;
-        this.phone = phone;
-        this.email = email;
-        this.id = id;
-        this.username = username;
-        this.password = password;
+//    id integer auto_increment, name varchar(255), surname varchar(255), phone varchar(255), email varchar(255), username varchar(255), password varchar(255), primary key (id));
+    public User(){
+        
     }
-
     public User(String name, String surname, String phone, String email, String username, String password) {
         this.name = name;
         this.surname = surname;
@@ -28,6 +21,30 @@ public class User {
         this.username = username;
         this.password = password;
 
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof User)) {
+            return false;
+        }
+
+        User other = (User) obj;
+        return getUsername().equals(other.getUsername());
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -87,20 +104,6 @@ public class User {
     }
 
     /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
      * @return the username
      */
     public String getUsername() {
@@ -126,16 +129,6 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof User)) {
-            return false;
-        }
-
-        User other = (User) obj;
-        return username.equals(other.username);
     }
 
 }

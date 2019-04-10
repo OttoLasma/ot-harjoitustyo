@@ -27,6 +27,8 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+//onn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
+//conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), user_id integer, available integer, primary key (id), foreign key (user_id) references User(id));").executeUpdate();
 
     @Override
     public void create(Ride ride) throws SQLException {
@@ -36,12 +38,12 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
                     + " (departurelocation, destinationlocation, price, seats, date, user_id, available)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, ride.getDepartureLocation());
-            stmt.setString(2, ride.getDestinationLocation());
+            stmt.setString(1, ride.getDeparturelocation());
+            stmt.setString(2, ride.getDestinationlocation());
             stmt.setInt(3, ride.getPrice());
-            stmt.setInt(4, ride.getSeatsAvailable());
-            stmt.setString(5, ride.getDepartureDate());
-            stmt.setInt(6, ride.getUserId());
+            stmt.setInt(4, ride.getSeats());
+            stmt.setString(5, ride.getDate());
+            stmt.setInt(6, ride.getUser_id());
             stmt.setInt(7, ride.getAvailable());
             return stmt;
         }, keyHolder);
@@ -61,12 +63,12 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
     @Override
     public Ride update(Ride ride) throws SQLException {
         jdbcTemplate.update("UPDATE Ride SET departurelocation = ?, destinationlocation = ?, price = ?, seats = ?, date = ?, user_id = ?, available = ? WHERE id = ?",
-                ride.getDepartureLocation(),
-                ride.getDestinationLocation(),
+                ride.getDeparturelocation(),
+                ride.getDestinationlocation(),
                 ride.getPrice(),
-                ride.getSeatsAvailable(),
-                ride.getDepartureDate(),
-                ride.getUserId(),
+                ride.getSeats(),
+                ride.getDate(),
+                ride.getUser_id(),
                 ride.getAvailable(),
                 ride.getId());
 
@@ -75,13 +77,10 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
 
     @Override
     public List<Ride> list() throws SQLException {
-        List<Ride> lista = jdbcTemplate.query(
+        return jdbcTemplate.query(
                 "SELECT * FROM Ride",
                 new BeanPropertyRowMapper<>(Ride.class));
-        if (lista.isEmpty()) {
-            return new ArrayList<Ride>();
-        }
-        return lista;
+        
     }
 }
 /*
