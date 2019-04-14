@@ -36,3 +36,17 @@ mvn jxr:jxr checkstyle:checkstyle
 
 Checkstyle-raportin löydät polusta /target/site/checkstyle.html
 
+<h3> Jarin generointi </h3>
+
+
+Suoritetaan komennolla:
+
+```
+mvn package
+```
+generoi hakemistoon target suoritettavan jar-tiedoston RideSharing2-1.0-SNAPSHOT.jar 
+
+
+
+
+
