@@ -2,7 +2,7 @@
 package ridesharing.domain;
 
 
-public class Ride {
+public class Reserve {
 
     private int id;
     private String departurelocation;
@@ -14,10 +14,10 @@ public class Ride {
     private int userId;
     
     
-    public Ride(){
+    public Reserve(){
         
     }
-    public Ride(String departurelocation, String destinationlocation, int price, int seats, String date, int userId) {
+    public Reserve(String departurelocation, String destinationlocation, int price, int seats, String date, int userId) {
         this.departurelocation = departurelocation;
         this.destinationlocation = destinationlocation;
         this.price = price;
@@ -141,7 +141,7 @@ public class Ride {
     }
 
     /**
-     * @param userId the user_id to set
+     * @param user_id the user_id to set
      */
     public void setUserId(int userId) {
         this.userId = userId;
