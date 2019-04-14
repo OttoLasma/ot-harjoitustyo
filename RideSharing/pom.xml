@@ -65,7 +65,8 @@
 	    <version>0.8.3</version>
 	    <configuration>
         	<excludes>
-            		<exclude>RideSharing2/RideSharing/Paaohjelma</exclude>
+			<exclude>ridesharing/ui/*</exclude>
+			<exclude>ridesharing/dao/*</exclude>
         	</excludes>
     	    </configuration>
             <executions>
@@ -103,7 +104,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ridesharing.ui.Paaohjelma</mainClass>
+					<mainClass>ridesharing.ui.Paaohjelma</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

@@ -146,5 +146,15 @@ public class Ride {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Ride)) {
+            return false;
+        }
+        
+        Ride other = (Ride) obj;
+        return departurelocation.equals(other.departurelocation);
+    }
+    
 
 }

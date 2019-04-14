@@ -1,5 +1,5 @@
 
-package RideSharing;
+package ridesharing.domain;
 
 
 
