@@ -146,5 +146,14 @@ public class Reserve {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Reserve)) {
+            return false;
+        }
+        
+        Reserve other = (Reserve) obj;
+        return departurelocation.equals(other.departurelocation);
+    }
 
 }

@@ -21,25 +21,29 @@ public class ReserveTest {
     public ReserveTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
     
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+
+//    public Ride(String departurelocation, String destinationlocation, int price, int seats, String date, int userId) {
+    @Test
+    public void equalWhenSame() {
+        Ride t1 = new Ride("helsinki", "tampere", 4, 3, "840925", 3);
+        Ride t2 = new Ride("helsinki", "tampere", 4, 3, "840925", 3);
+        assertTrue(t1.equals(t2));
+    }
+  
+    @Test
+    public void notEqualWhenDifferentDeparture() {
+        Ride t1 = new Ride("helsinki", "tampere", 4, 3, "840925", 3);
+        Ride t2 = new Ride("turku", "tampere", 4, 3, "840925", 3);
+        assertFalse(t1.equals(t2));
+    }   
+    
+    @Test
+    public void nonEqualWhenDifferentType() {
+        Ride t1 = new Ride("helsinki", "tampere", 4, 3, "840925", 3);
+        Object o = new Object();
+        assertFalse(t1.equals(o));
+    }      
 }
+
