@@ -14,7 +14,10 @@ import ridesharing.dao.ReserveDao;
 import ridesharing.domain.Reserve;
 import ridesharing.domain.RidesharingService;
 
-//@ComponentScan({"ridesharing.dao"})
+/**
+ *provides interface for the application
+ * @author ottlasma
+ */
 @Component
 public class kokeiluKayttoliittyma {
 
@@ -32,6 +35,12 @@ public class kokeiluKayttoliittyma {
 
     }
 
+    /**
+     *actual interface 
+     * 
+     * @param scanner
+     * @throws SQLException
+     */
     public void start(Scanner scanner) throws SQLException {
         this.scanner = scanner;
 
@@ -83,7 +92,12 @@ public class kokeiluKayttoliittyma {
             }
         }
     }
-
+    /**
+     *actual interface although highlighting features for logged in user
+     * 
+     * @param user
+     * @throws SQLException
+     */
     private void features(User user) throws SQLException {
         while (true) {
             System.out.println("Commands: ");

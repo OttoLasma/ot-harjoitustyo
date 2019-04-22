@@ -13,12 +13,24 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import ridesharing.domain.User;
 
+/**
+ *class offer different methods that makes it more practical to get access to the database table User
+ * 
+ * 
+ * @author ottlasma
+ */
 @Component
 public class UserDao implements RideSharingDao<User, Integer> {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    /**
+     *method enables to insert new user to database user. 
+     * 
+     * @param user
+     * @throws SQLException
+     */
     @Override
     public void create(User user) throws SQLException {
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -39,6 +51,14 @@ public class UserDao implements RideSharingDao<User, Integer> {
 
     }
 
+    /**
+     *method enables to search specific user from user table based on given key
+     * 
+     * 
+     * @param key
+     * @return
+     * @throws SQLException
+     */
     @Override
     public User read(Integer key) throws SQLException {
         User user = jdbcTemplate.queryForObject(
@@ -49,6 +69,13 @@ public class UserDao implements RideSharingDao<User, Integer> {
         return user;
     }
 
+    /**
+     *method enables to update the information of certain user in database
+     * 
+     * @param user
+     * @return
+     * @throws SQLException
+     */
     @Override
     public User update(User user) throws SQLException {
         jdbcTemplate.update("UPDATE User SET name = ?, surname = ?, phone = ?, email = ?, username = ?, password = ? WHERE id = ?",
@@ -63,6 +90,12 @@ public class UserDao implements RideSharingDao<User, Integer> {
         return user;
     }
 
+    /**
+     *method provides list of all the users added to database table user
+     * 
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<User> list() throws SQLException {
         return jdbcTemplate.query(
@@ -71,10 +104,3 @@ public class UserDao implements RideSharingDao<User, Integer> {
         
     }
 }
-/*
-conn.prepareStatement("DROP TABLE User IF EXISTS;").executeUpdate();
-conn.prepareStatement("CREATE TABLE User(id integer auto_increment, name varchar(255),surname varchar(255), phone varchar(255), email varchar(255), username varchar(255), password varchar(255), primary key(id));").executeUpdate();
-conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
-conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255),user_id integer, foreign key (user_id) references User(id), primary key(id));").executeUpdate();
-
- */

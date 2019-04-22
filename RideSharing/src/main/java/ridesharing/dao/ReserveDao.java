@@ -20,7 +20,9 @@ import ridesharing.domain.Reserve;
 import ridesharing.domain.Ride;
 
 /**
- *
+ *class provides functionalities that makes it easier to operate with reserve database table
+ * 
+ * 
  * @author ottlasma
  */
 @Component
@@ -28,9 +30,13 @@ public class ReserveDao implements RideSharingDao<Reserve, Integer> {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
-//onn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
-//conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), user_id integer, available integer, primary key (id), foreign key (user_id) references User(id));").executeUpdate();
 
+    /**
+     *method create new reserve and add it to database table reserve
+     * 
+     * @param reserve
+     * @throws SQLException
+     */
     @Override
     public void create(Reserve reserve) throws SQLException {
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -51,6 +57,13 @@ public class ReserveDao implements RideSharingDao<Reserve, Integer> {
         reserve.setId(keyHolder.getKey().intValue());
     }
 
+    /**
+     * method returns reserve that matches with the given parameter
+     *
+     * @param key
+     * @return reserve
+     * @throws SQLException
+     */
     @Override
     public Reserve read(Integer key) throws SQLException {
         Reserve reserve = jdbcTemplate.queryForObject(
@@ -61,6 +74,12 @@ public class ReserveDao implements RideSharingDao<Reserve, Integer> {
         return reserve;
     }
 
+    /**
+     * method updates the gives reserve with provided new information
+     * @param reserve
+     * @return
+     * @throws SQLException
+     */
     @Override
     public Reserve update(Reserve reserve) throws SQLException {
         jdbcTemplate.update("UPDATE Reserve SET departurelocation = ?, destinationlocation = ?, price = ?, seats = ?, date = ?, userId = ?, available = ? WHERE id = ?",
@@ -76,6 +95,11 @@ public class ReserveDao implements RideSharingDao<Reserve, Integer> {
         return reserve;
     }
 
+    /**
+     *method returns list of all reserves that have been added to the database
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Reserve> list() throws SQLException {
         return jdbcTemplate.query(
@@ -84,11 +108,5 @@ public class ReserveDao implements RideSharingDao<Reserve, Integer> {
         
     }
 }
-/*
-conn.prepareStatement("DROP TABLE User IF EXISTS;").executeUpdate();
-conn.prepareStatement("CREATE TABLE User(id integer auto_increment, name varchar(255),surname varchar(255), phone varchar(255), email varchar(255), username varchar(255), password varchar(255), primary key(id));").executeUpdate();
-conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
-conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255),user_id integer, foreign key (user_id) references User(id), primary key(id));").executeUpdate();
 
-*/
 

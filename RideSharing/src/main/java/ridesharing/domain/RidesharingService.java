@@ -16,6 +16,8 @@ import ridesharing.dao.RideDao;
 import ridesharing.dao.UserDao;
 
 /**
+ * this class provides some methods that are needed in interface
+ * 
  *
  * @author ottlasma
  */
@@ -29,6 +31,14 @@ public class RidesharingService {
     @Autowired
     ReserveDao reserveDao;
 
+    /**
+     * method returns true in case username has already been taken otherwise method returns false
+     * 
+     * 
+     * @param username
+     * @return true or false
+     * @throws SQLException
+     */
     public boolean usernameHasAlreadyTaken(String username) throws SQLException {
         List<User> list = userDao.list();
         List<String> usernames = new ArrayList<>();
@@ -43,6 +53,14 @@ public class RidesharingService {
 
     }
 
+    /**
+     * Method returns current user's user id in case available. 
+     * 
+     * @param username
+     * @param password
+     * @return user id or error value
+     * @throws SQLException
+     */
     public int correctCredentials(String username, String password) throws SQLException {
         for (User user : userDao.list()) {
             if (user.getUsername().equals(username)) {
@@ -54,6 +72,13 @@ public class RidesharingService {
         return -10;
     }
 
+    /**
+     *method returns list of rides that haven't been taken by other users
+     * 
+     * 
+     * @return list
+     * @throws SQLException
+     */
     public List<Ride> returnListofAvailableRides() throws SQLException {
         List<Ride> list = new ArrayList<>();
         for (Ride ride : rideDao.list()) {
@@ -64,6 +89,14 @@ public class RidesharingService {
         return list;
     }
 
+    /**
+     *method returns list of rides that has been added by the user in question
+     * 
+     * 
+     * @param userId
+     * @return list
+     * @throws SQLException
+     */
     public List<Ride> returnListofUsersRides(int userId) throws SQLException {
         List<Ride> list = new ArrayList<>();
         for (Ride ride : rideDao.list()) {
@@ -73,7 +106,16 @@ public class RidesharingService {
         }
         return list;
     }
-     public List<Reserve> returnListofUsersReserves(int userId) throws SQLException {
+
+    /**
+     *method returns list of reserves that has been made by the user in question
+     * 
+     * 
+     * @param userId
+     * @return list 
+     * @throws SQLException
+     */
+    public List<Reserve> returnListofUsersReserves(int userId) throws SQLException {
         List<Reserve> list = new ArrayList<>();
         for (Reserve reserve : reserveDao.list()) {
             if (reserve.getUserId() == userId) {

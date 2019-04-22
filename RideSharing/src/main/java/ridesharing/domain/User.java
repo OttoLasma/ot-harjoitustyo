@@ -1,5 +1,9 @@
 package ridesharing.domain;
 
+/**
+ *class user
+ * @author ottlasma
+ */
 public class User {
     private int id;
     private String name;
@@ -9,7 +13,7 @@ public class User {
     private String username;
     private String password;
 
-//    id integer auto_increment, name varchar(255), surname varchar(255), phone varchar(255), email varchar(255), username varchar(255), password varchar(255), primary key (id));
+
     public User(){
         
     }

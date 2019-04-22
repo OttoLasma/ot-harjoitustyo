@@ -20,6 +20,8 @@ import ridesharing.domain.Ride;
 
 /**
  *
+ * class provides certain functionalities that makes it easier to get access to database
+ * 
  * @author ottlasma
  */
 @Component
@@ -27,9 +29,14 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
-//onn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
-//conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), user_id integer, available integer, primary key (id), foreign key (user_id) references User(id));").executeUpdate();
 
+    /**
+     *method enables to insert new ride to the database. values are taken from provided parameters
+     * 
+     * 
+     * @param ride
+     * @throws SQLException
+     */
     @Override
     public void create(Ride ride) throws SQLException {
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -50,6 +57,14 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
         ride.setId(keyHolder.getKey().intValue());
     }
 
+    /**
+     *method returns ride which has the same key as provided 
+     * 
+     * 
+     * @param key
+     * @return ride
+     * @throws SQLException
+     */
     @Override
     public Ride read(Integer key) throws SQLException {
         Ride ride = jdbcTemplate.queryForObject(
@@ -60,6 +75,14 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
         return ride;
     }
 
+    /**
+     *method makes it possible to update one specific ride with given information
+     * 
+     * 
+     * @param ride
+     * @return
+     * @throws SQLException
+     */
     @Override
     public Ride update(Ride ride) throws SQLException {
         jdbcTemplate.update("UPDATE Ride SET departurelocation = ?, destinationlocation = ?, price = ?, seats = ?, date = ?, userId = ?, available = ? WHERE id = ?",
@@ -75,6 +98,13 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
         return ride;
     }
 
+    /**
+     *method returns list of rides that have been added to database
+     * 
+     * 
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Ride> list() throws SQLException {
         return jdbcTemplate.query(
@@ -83,10 +113,4 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
         
     }
 }
-/*
-conn.prepareStatement("DROP TABLE User IF EXISTS;").executeUpdate();
-conn.prepareStatement("CREATE TABLE User(id integer auto_increment, name varchar(255),surname varchar(255), phone varchar(255), email varchar(255), username varchar(255), password varchar(255), primary key(id));").executeUpdate();
-conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
-conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255),user_id integer, foreign key (user_id) references User(id), primary key(id));").executeUpdate();
 
-*/

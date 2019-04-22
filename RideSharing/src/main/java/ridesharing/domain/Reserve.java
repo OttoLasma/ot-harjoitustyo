@@ -1,7 +1,11 @@
 
 package ridesharing.domain;
 
-
+/**
+ * class reserve
+ *
+ * @author ottlasma
+ */
 public class Reserve {
 
     private int id;
@@ -29,7 +33,10 @@ public class Reserve {
 //conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
 //conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), user_id integer, available integer, primary key (id), foreign key (user_id) references User(id));").executeUpdate();
 
-    
+    /**
+     *method specifies how reserves are supposed to be printed
+     * @return
+     */
     @Override
     public String toString() {
         return this.getDeparturelocation() + " " + " " + this.getDestinationlocation() + " " + " " + this.getPrice() + " " + this.getSeats();
