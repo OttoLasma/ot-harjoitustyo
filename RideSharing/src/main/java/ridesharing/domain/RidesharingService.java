@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ridesharing.dao.ReserveDao;
 import ridesharing.dao.RideDao;
 import ridesharing.dao.UserDao;
 
@@ -25,6 +26,8 @@ public class RidesharingService {
     RideDao rideDao;
     @Autowired
     UserDao userDao;
+    @Autowired
+    ReserveDao reserveDao;
 
     public boolean usernameHasAlreadyTaken(String username) throws SQLException {
         List<User> list = userDao.list();
@@ -51,22 +54,33 @@ public class RidesharingService {
         return -10;
     }
 
-    public void createNewRide(Scanner scanner, int userId) throws SQLException {
-        System.out.println("Provide the needed information below in order to add new ride:");
-        System.out.println("Location of departure");
-        String departure = scanner.nextLine();
-        System.out.println("Location of destination");
-        String destination = scanner.nextLine();
-        System.out.println("Total price for the ride");
-        int price = Integer.parseInt(scanner.nextLine());
-        System.out.println("Number of available rides");
-        int seats = Integer.parseInt(scanner.nextLine());
-        System.out.println("Estimated Time and date of the departure (mm/dd-hh/mm)");
-        String date = scanner.nextLine();
-        Ride ride = new Ride(departure, destination, price, seats, date, userId);
-        rideDao.create(ride);
+    public List<Ride> returnListofAvailableRides() throws SQLException {
+        List<Ride> list = new ArrayList<>();
+        for (Ride ride : rideDao.list()) {
+            if (ride.getAvailable() == 0) {
+                list.add(ride);
+            }
+        }
+        return list;
     }
 
-   
+    public List<Ride> returnListofUsersRides(int userId) throws SQLException {
+        List<Ride> list = new ArrayList<>();
+        for (Ride ride : rideDao.list()) {
+            if (ride.getUserId() == userId) {
+                list.add(ride);
+            }
+        }
+        return list;
+    }
+     public List<Reserve> returnListofUsersReserves(int userId) throws SQLException {
+        List<Reserve> list = new ArrayList<>();
+        for (Reserve reserve : reserveDao.list()) {
+            if (reserve.getUserId() == userId) {
+                list.add(reserve);
+            }
+        }
+        return list;
+    }
 
 }

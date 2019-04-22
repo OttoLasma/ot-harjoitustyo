@@ -1,6 +1,5 @@
 package ridesharing.ui;
 
-
 import ridesharing.domain.Ride;
 import ridesharing.dao.RideDao;
 import ridesharing.domain.User;
@@ -116,27 +115,20 @@ public class kokeiluKayttoliittyma {
             }
             if (command.equals("2")) {
                 System.out.println("List of all available rides: ");
-                for (Ride ride : rideDao.list()) {
-                    if (ride.getAvailable() == 0) {
-                        System.out.println(ride);
-                    }
+                List<Ride> list = serviceDao.returnListofAvailableRides();
+                for (Ride ride : list) {
+                    System.out.println(ride);
                 }
             }
             if (command.equals("3")) {
                 System.out.println("List of all the rides that have been added by you:");
-                for (Ride ride : rideDao.list()) {
-                    if (ride.getUserId() == user.getId()) {
-                        System.out.println(ride);
-                    }
+                List<Ride> list = serviceDao.returnListofUsersRides(user.getId());
+                for (Ride ride : list) {
+                    System.out.println(ride);
                 }
             }
             if (command.equals("4")) {
-                List<Ride> list = new ArrayList<>();
-                for (Ride ride : rideDao.list()) {
-                    if (ride.getAvailable() == 0) {
-                        list.add(ride);
-                    }
-                }
+                List<Ride> list = serviceDao.returnListofAvailableRides();
                 System.out.println("Choose preferred ride (" + 1 + "-" + list.size() + ") from below listed rides" + ". In case you cannot find suitable ride press 'x'.");
                 for (int i = 0; i < list.size(); i++) {
                     System.out.println(i + 1 + ". " + list.get(i));
@@ -155,10 +147,9 @@ public class kokeiluKayttoliittyma {
             }
             if (command.equals("5")) {
                 System.out.println("List of all the rides that have been reserved by you: ");
-                for (Reserve reserve : reserveDao.list()) {
-                    if (reserve.getAvailable() == 0) {
-                        System.out.println(reserve);
-                    }
+                List<Reserve> list = serviceDao.returnListofUsersReserves(user.getId());
+                for (Reserve reserve : list) {
+                    System.out.println(reserve);
                 }
             }
 
