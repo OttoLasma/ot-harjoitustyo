@@ -47,6 +47,16 @@ mvn package
 generoi hakemistoon target suoritettavan jar-tiedoston original-RideSharing2-1.0-SNAPSHOT.jar (huom jar tiedoston nimi)
 
 
+<h3> JavaDock </h3>
+
+
+JavaDoc generoidaan seuraavalla komennolla
+
+```
+mvn javadoc:javadoc
+```
+
+JavaDoc raportti voidaan avata selaimella täältä: _target/site/apidocs/index.html_
 
 
 
