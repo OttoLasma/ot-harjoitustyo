@@ -17,7 +17,7 @@ import ridesharing.dao.UserDao;
 
 /**
  * this class provides some methods that are needed in interface
- * 
+ *
  *
  * @author ottlasma
  */
@@ -32,30 +32,94 @@ public class RidesharingService {
     ReserveDao reserveDao;
 
     /**
-     * method returns true in case username has already been taken otherwise method returns false
-     * 
-     * 
+     * method asks username until user provides username that has not been added
+     * to the databases. When valid username is given method returns this
+     * username.
+     *
+     *
      * @param username
-     * @return true or false
+     * @return username
      * @throws SQLException
      */
-    public boolean usernameHasAlreadyTaken(String username) throws SQLException {
+    public String usernameHasAlreadyTaken(String username, Scanner scanner) throws SQLException {
         List<User> list = userDao.list();
         List<String> usernames = new ArrayList<>();
         for (User user : list) {
             usernames.add(user.getUsername());
         }
         if (usernames.contains(username)) {
-            return true;
+            while (true) {
+                System.out.println("This username is already taken. Try again with different username.");
+                System.out.println("Username: ");
+                username = scanner.nextLine();
+                if (!usernames.contains(username)) {
+                    return username;
+                }
+            }
         } else {
-            return false;
+            return username;
         }
-
     }
 
     /**
-     * Method returns current user's user id in case available. 
-     * 
+     * method creates add new user to database table user
+     *
+     * @param user
+     * @throws SQLException
+     */
+    public void createUser(User user) throws SQLException {
+        userDao.create(user);
+    }
+
+    /**
+     * method returns user having the id as parameter variableId from database
+     *
+     * @param variableId
+     * @return
+     * @throws SQLException
+     */
+    public User readUser(int variableId) throws SQLException {
+        return userDao.read(variableId);
+    }
+
+    /**
+     *method inserts new ride to database
+     * @param ride
+     * @throws SQLException
+     */
+    public void createRide(Ride ride) throws SQLException {
+        rideDao.create(ride);
+    }
+
+    /**
+     *method inserts new reserve to database
+     * @param reserve
+     * @throws SQLException
+     */
+    public void createReserve(Reserve reserve) throws SQLException {
+        reserveDao.create(reserve);
+    }
+
+    /**
+     *method updates the available status of chosen ride and in addition creates new reserve for that specific ride
+     * @param list
+     * @param variable
+     * @param userId
+     * @throws SQLException
+     */
+    public void reserveRideAndReserve(List<Ride> list, String variable, int userId) throws SQLException {
+        int variable2 = Integer.parseInt(variable);
+        Ride ride = list.get(variable2 - 1);
+        ride.setAvailable(1);
+        rideDao.update(ride);
+        Reserve reserve = new Reserve(ride.getDeparturelocation(), ride.getDestinationlocation(), ride.getPrice(), ride.getSeats(), ride.getDate(), userId);
+        reserveDao.create(reserve);
+        
+    }
+
+    /**
+     * Method returns current user's user id in case available.
+     *
      * @param username
      * @param password
      * @return user id or error value
@@ -73,9 +137,9 @@ public class RidesharingService {
     }
 
     /**
-     *method returns list of rides that haven't been taken by other users
-     * 
-     * 
+     * method returns list of rides that haven't been taken by other users
+     *
+     *
      * @return list
      * @throws SQLException
      */
@@ -90,9 +154,9 @@ public class RidesharingService {
     }
 
     /**
-     *method returns list of rides that has been added by the user in question
-     * 
-     * 
+     * method returns list of rides that has been added by the user in question
+     *
+     *
      * @param userId
      * @return list
      * @throws SQLException
@@ -108,11 +172,12 @@ public class RidesharingService {
     }
 
     /**
-     *method returns list of reserves that has been made by the user in question
-     * 
-     * 
+     * method returns list of reserves that has been made by the user in
+     * question
+     *
+     *
      * @param userId
-     * @return list 
+     * @return list
      * @throws SQLException
      */
     public List<Reserve> returnListofUsersReserves(int userId) throws SQLException {

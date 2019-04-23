@@ -65,16 +65,12 @@ public class kokeiluKayttoliittyma {
                 System.out.println("Phone");
                 String phone = scanner.nextLine();
                 System.out.println("Username");
-                String username = scanner.nextLine();
-                while (serviceDao.usernameHasAlreadyTaken(username)) {
-                    System.out.println("This username is already taken");
-                    System.out.println("Username");
-                    username = scanner.nextLine();
-                }
+                String username = scanner.nextLine();   
+                username = serviceDao.usernameHasAlreadyTaken(username, scanner);
                 System.out.println("Password");
                 String password = scanner.nextLine();
                 User user = new User(name, surname, phone, email, username, password);
-                userDao.create(user);
+                serviceDao.createUser(user);
                 features(user);
             }
             if (command.equals("2")) {
@@ -87,7 +83,7 @@ public class kokeiluKayttoliittyma {
                     System.out.println("Incorrect username or password");
                     start(scanner);
                 } else {
-                    features(userDao.read(variableId));
+                    features(serviceDao.readUser(variableId));
                 }
             }
         }
@@ -125,7 +121,7 @@ public class kokeiluKayttoliittyma {
                 System.out.println("Estimated Time and date of the departure (mm/dd-hh/mm)");
                 String date = scanner.nextLine();
                 Ride ride = new Ride(departure, destination, price, seats, date, user.getId());
-                rideDao.create(ride);
+                serviceDao.createRide(ride);
             }
             if (command.equals("2")) {
                 System.out.println("List of all available rides: ");
@@ -150,14 +146,9 @@ public class kokeiluKayttoliittyma {
                 String variable = scanner.nextLine();
                 if (variable.equals("x")) {
                     features(user);
-                }
-                int variable2 = Integer.parseInt(variable);
-                Ride ride = list.get(variable2 - 1);
-                ride.setAvailable(1);
-                rideDao.update(ride);
+                }            
+                serviceDao.reserveRideAndReserve(list, variable, user.getId());
                 System.out.println("Ride has been reserved!");
-                reserveDao.create(new Reserve(ride.getDeparturelocation(), ride.getDestinationlocation(), ride.getPrice(), ride.getSeats(), ride.getDate(), user.getId()));
-
             }
             if (command.equals("5")) {
                 System.out.println("List of all the rides that have been reserved by you: ");
