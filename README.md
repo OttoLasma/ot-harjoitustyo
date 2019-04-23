@@ -9,6 +9,13 @@ Sovelluksen tarkoitus on mahdollistaa kyytien lisäämisen ja toisaalta myös eh
 - [Työaikakirjapito](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/tyoaikakirjanpito.md)
 - [Arkkitehtuuri](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/arkkitehtuuri.md)
 
+<h2> Releaset </h2>
+
+- [Viikko 5](https://github.com/OttoLasma/ot-harjoitustyo/releases/tag/viikko5)
+
+- [Viikko 6](https://github.com/OttoLasma/ot-harjoitustyo/releases/tag/viikko6)
+
+
 <h2> Komentorivitoiminnot </h2>
 <h3> Testaus </h3>
 
