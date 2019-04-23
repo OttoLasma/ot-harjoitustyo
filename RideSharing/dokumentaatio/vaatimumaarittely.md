@@ -11,15 +11,16 @@ Sovelluksella on yksi käyttäjäroolia, jolloin kaikilla käyttäjillä on mahd
 <h3> Ennen kirjautumista </h3>
 
 - Sovelluksen käyttäjät voivat luoda uuden käyttäjätunnuksen
-  - Tunnuksen tulee olla sellaisen, ettei se ole käytössä muilla käyttäjillä. Lisäksi olisi varmasti mielekästä, jos kirjautujista otettaisiin talteen muitakin tietoja, kuin vain käyttätunnus.
+  - Tunnuksen tulee olla sellaisen, ettei se ole käytössä muilla käyttäjillä. Lisäksi kirjautmisen yhteydessä käyttäjältä edellytetään nimen, sukunimen, puhelinnumeron, sähköpostin, sekä salasanan täyttämistä.
 - Käyttäjätunnuksen luonut henkilö voi kirjautua sovellukseen
-  - Kirjautuminen onnistuu, mikäli käyttäjätunnus on oikein kirjoitettu. Mahdollisesti voisi olla ihan paikallaan vaatia kirjautumisen yhteydessä niin ikään salasana.
+  - Kirjautuminen onnistuu, mikäli käyttäjätunnus on oikein kirjoitettu. Kirjautumisessa edellytetään myös salasanan syöttämistä.
  <h3> Kirjautumisen jälkeen </h3>
  
-- Käyttäjällä on valittavissa kaksi näkymää, jotka ovat seuraavat kyytien tarkastelu, sekä kyydin lisääminen. 
+- Käyttäjällä on valittavissa viisi toiminnallisuutta, jotka ovat seuraavat: kyydin varaaminen, kättäjän itsensä tekemien kyytien tarkastelu, käyttäjän itsensä tekemien varausten tarkastelu, kyytien tarkastelu, sekä kyydin lisääminen. 
 - Kyydin lisäämisen yhteydessä edellytetään seuraavat tiedot: päivämäärä, lähtöpaikka, hinta, määränpää ja vapaiden paikkojen lukumäärä.
-- Onnistunut kyydin lisäys lisää tämän samaisen kyydin toiseen näkymään, jossa on katsottavissa kaikki avoinna olevat kyydit.
+- Onnistunut kyydin lisäys lisää tämän samaisen kyydin vapaisiin kyyteihin, jossa on katsottavissa kaikki avoinna olevat kyydit.
 - Käyttäjä voi valita mieleisensä avoimen kyydin ja merkata sen käytetyksi, jollain samainen kyyti katoaa avoimien kyytien listauksesta.
+- Käyttäjän itsensä varaamat/listaaman kyydit voidaan listata käyttäjälle, mikäli tämä on tarpeellista.
 
 <h3> Jatkokehitysideoita </h3>
 
