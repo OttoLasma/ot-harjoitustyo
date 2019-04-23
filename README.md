@@ -8,6 +8,7 @@ Sovelluksen tarkoitus on mahdollistaa kyytien lisäämisen ja toisaalta myös eh
 - [Vaatimusmäärittely](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/vaatimumaarittely.md)
 - [Työaikakirjapito](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/tyoaikakirjanpito.md)
 - [Arkkitehtuuri](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/arkkitehtuuri.md)
+- [Käyttöohje](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/kayttoohje.md)
 
 <h2> Releaset </h2>
 
