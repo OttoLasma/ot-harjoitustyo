@@ -21,12 +21,7 @@ import ridesharing.domain.RidesharingService;
 @Component
 public class kokeiluKayttoliittyma {
 
-    @Autowired
-    RideDao rideDao;
-    @Autowired
-    UserDao userDao;
-    @Autowired
-    ReserveDao reserveDao;
+    
     @Autowired
     RidesharingService serviceDao;
     private Scanner scanner;
