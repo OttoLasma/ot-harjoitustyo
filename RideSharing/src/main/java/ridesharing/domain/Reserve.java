@@ -30,8 +30,6 @@ public class Reserve {
         this.available = 0;
         this.userId = userId;
     }
-//conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
-//conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), user_id integer, available integer, primary key (id), foreign key (user_id) references User(id));").executeUpdate();
 
     /**
      *method specifies how reserves are supposed to be printed
@@ -141,14 +139,14 @@ public class Reserve {
     }
 
     /**
-     * @return the user_id
+     * @return the userId
      */
     public int getUserId() {
         return userId;
     }
 
     /**
-     * @param user_id the user_id to set
+     * @param userId the user_id to set
      */
     public void setUserId(int userId) {
         this.userId = userId;

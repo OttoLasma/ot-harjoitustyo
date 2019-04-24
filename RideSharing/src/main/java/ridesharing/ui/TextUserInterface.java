@@ -19,14 +19,14 @@ import ridesharing.domain.RidesharingService;
  * @author ottlasma
  */
 @Component
-public class kokeiluKayttoliittyma {
+public class TextUserInterface {
 
     
     @Autowired
     RidesharingService serviceDao;
     private Scanner scanner;
 
-    public kokeiluKayttoliittyma() {
+    public TextUserInterface() {
 
     }
 

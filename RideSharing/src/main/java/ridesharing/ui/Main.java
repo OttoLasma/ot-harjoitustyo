@@ -13,13 +13,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication(scanBasePackages = {"ridesharing.ui", "ridesharing.domain", "ridesharing.dao"})
-public class Paaohjelma implements CommandLineRunner {
+public class Main implements CommandLineRunner {
 
     public static void main(String[] args) throws SQLException {
-        SpringApplication.run(Paaohjelma.class);
+        SpringApplication.run(Main.class);
     }
     @Autowired
-    kokeiluKayttoliittyma tekstikayttoliittyma;
+    TextUserInterface tekstikayttoliittyma;
 
     @Override
     public void run(String... args) throws Exception {
@@ -39,7 +39,7 @@ public class Paaohjelma implements CommandLineRunner {
             conn.prepareStatement("CREATE TABLE Reserve(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), userId integer, available integer, primary key (id), foreign key (userId) references User(id));").executeUpdate();
 
         } catch (SQLException ex) {
-            Logger.getLogger(Paaohjelma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

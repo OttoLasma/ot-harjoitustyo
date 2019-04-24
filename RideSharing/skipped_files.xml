@@ -5,9 +5,6 @@
     "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
-    <suppress files="ridesharing.ui.Paaohjelma.java" checks="[a-zA-Z0-9]*"/>
-    <suppress files="ridesharing.ui.kokeiluKayttoliittyma.java" checks="[a-zA-Z0-9]*"/>
-    <suppress files="ridesharing.dao.ReserveDao.java" checks="[a-zA-Z0-9]*"/>
-    <suppress files="ridesharing.dao.RideDao.java" checks="[a-zA-Z0-9]*"/>
-    <suppress files="ridesharing.dao.UserDao.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="ridesharing.ui.Main.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="ridesharing.ui.TextUserInterface.java" checks="[a-zA-Z0-9]*"/>
 </suppressions>
