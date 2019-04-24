@@ -30,13 +30,12 @@ public class Main implements CommandLineRunner {
 
     private void prepareDatabases() {
         try (Connection conn = DriverManager.getConnection("jdbc:h2:./RideSharingDatabases", "sa", "")) {
-//            System.out.println("fjadfa");
-            conn.prepareStatement("DROP TABLE User IF EXISTS;").executeUpdate();
-            conn.prepareStatement("CREATE TABLE User(id integer auto_increment, name varchar(255), surname varchar(255), phone varchar(255), email varchar(255), username varchar(255), password varchar(255), primary key (id));").executeUpdate();
-            conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
-            conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), userId integer, available integer, primary key (id), foreign key (userId) references User(id));").executeUpdate();
-            conn.prepareStatement("DROP TABLE Reserve IF EXISTS;").executeUpdate();
-            conn.prepareStatement("CREATE TABLE Reserve(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), userId integer, available integer, primary key (id), foreign key (userId) references User(id));").executeUpdate();
+//            conn.prepareStatement("DROP TABLE User IF EXISTS;").executeUpdate();
+//            conn.prepareStatement("CREATE TABLE User(id integer auto_increment, name varchar(255), surname varchar(255), phone varchar(255), email varchar(255), username varchar(255), password varchar(255), primary key (id));").executeUpdate();
+//            conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
+//            conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), userId integer, available integer, primary key (id), foreign key (userId) references User(id));").executeUpdate();
+//            conn.prepareStatement("DROP TABLE Reserve IF EXISTS;").executeUpdate();
+//            conn.prepareStatement("CREATE TABLE Reserve(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), userId integer, available integer, primary key (id), foreign key (userId) references User(id));").executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

@@ -151,6 +151,11 @@ public class TextUserInterface {
                 for (Reserve reserve : list) {
                     System.out.println(reserve);
                 }
+            if(command.equals("6")){
+                System.out.println("jotain");
+            }    
+            }else{
+                System.out.println("Invalid command");
             }
 
         }
