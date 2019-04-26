@@ -130,16 +130,42 @@ Seuraavassa on esitettynä osa sovelluksen toiminnallisuuksista sekvenssikaavioi
 
 <h5> Kirjautuminen </h5>
 
+Kirjautuminen onnistuu, mikäli käyttäjä on aikaisemmin luotuna. Lisäksi kirjautumisessa edellytetään luonnollisesti, että käyttäjän syöttä käyttäjätunnus, sekä salasana ovat oikeelliset. Onnistunut kirjautuminen ohjaa käyttäjän kirjautuneen käyttäjän näkymään.
+
+![signin](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/signin.jpeg "signin")
+
 <h5> Uuden käyttäjän luominen </h5>
+Uuden käyttäjän luomisen yhteydessä käyttäjää pyydetään antamaan seuraavat tiedot:
+
+- nimi
+- sukunimi
+- puhelin
+- sähköpostiosoite
+- käyttäjätunnus (käyttäjätunnuksen tulee olla uniikki)
+- salasana 
+
+Onnistunut käyttäjän luominen ohjaa käyttäjän kirjautuneen käyttäjän näkymään.
+
+
+![signup](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/sign.jpeg "signup")
 
 <h5> Varauksen tekeminen </h5>
 
+Varauksen tekemisen yhteydessä käyttäjälle näytetään tällä hetkellä vapaana olevat kyydit. Vapaana olevistä kyydeistä käyttäjän on mahdollista varata itselleen mieluisa. Onnistuneet varauksen yhteydessä kyydin lisänneelle henkilölle lähetetään sähköpostiviesti asiasta.
+
+![reserve](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/varaakyyti.jpeg "reserve")
+
+
 <h5> Vapaiden kyytien listaaminen </h5>
+
+Tässä käyttäjälle esitetään kaikki tällä hetkellä vapaana olevat kyydit.
+
+![signup](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/listaa.jpeg "signup")
+
 
 <h5> Muut toiminnallisuudet </h5>
 
+Muut toiminnallisuudet noudattavat samaa logiikkaa, kuin edellä kuvatut toiminnallisuudet. Yhdistävä piirre on sovelluslogiikan ulkoistamisen _RidesharingService_ -luokalle, sekä _Dao_ -luokille.
 
 
-![arkkitehtuuri](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/IMG_8493.jpg "arkkitehtuuri")
 
-![arkkitehtuuri](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/photo5888638482417561668.jpg "sekvenssikaavio")
