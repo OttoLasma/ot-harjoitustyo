@@ -19,7 +19,7 @@ Sovelluksella on yksi käyttäjäroolia, jolloin kaikilla käyttäjillä on mahd
 - Käyttäjällä on valittavissa viisi toiminnallisuutta, jotka ovat seuraavat: kyydin varaaminen, kättäjän itsensä tekemien kyytien tarkastelu, käyttäjän itsensä tekemien varausten tarkastelu, kyytien tarkastelu, sekä kyydin lisääminen. 
 - Kyydin lisäämisen yhteydessä edellytetään seuraavat tiedot: päivämäärä, lähtöpaikka, hinta, määränpää ja vapaiden paikkojen lukumäärä.
 - Onnistunut kyydin lisäys lisää tämän samaisen kyydin vapaisiin kyyteihin, jossa on katsottavissa kaikki avoinna olevat kyydit.
-- Käyttäjä voi valita mieleisensä avoimen kyydin ja merkata sen käytetyksi, jollain samainen kyyti katoaa avoimien kyytien listauksesta.
+- Käyttäjä voi valita mieleisensä avoimen kyydin ja merkata sen käytetyksi, jollain samainen kyyti katoaa avoimien kyytien listauksesta. Tällöin kyydin ilmoittaneelle henkilölle lähetetään sähköposti asiasta.
 - Käyttäjän itsensä varaamat/listaaman kyydit voidaan listata käyttäjälle, mikäli tämä on tarpeellista.
 
 <h3> Jatkokehitysideoita </h3>
