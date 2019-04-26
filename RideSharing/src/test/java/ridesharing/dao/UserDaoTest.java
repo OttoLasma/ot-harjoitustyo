@@ -6,6 +6,7 @@
 package ridesharing.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,55 +16,53 @@ import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ridesharing.domain.Reserve;
+import ridesharing.domain.User;
 
 /**
  *
  * @author ottlasma
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ReserveDaoTest {
+public class UserDaoTest {
     @InjectMocks
-    ReserveDao reserveDao;
+    UserDao userDao;
     @Mock
     JdbcTemplate jdbcTemplate;
     
-    
-    public ReserveDaoTest() {
+    public UserDaoTest() throws SQLException {
+        
     }
     
     
     @Test
     public void findByKeyTest() throws SQLException{
-        reserveDao.read(1);  
+        userDao.read(1);        
     }
     @Test
     public void createTest() throws SQLException{
         
-        Reserve reserve = new Reserve("name", "surname", 1, 1,  "username",  1);
+        User user = new User("name", "surname", " phone", " email",  "username",  "password");
         try{
-            reserveDao.create(reserve);
+            userDao.create(user);
         }catch(Exception e){
-            reserveDao.read(1); 
+            userDao.read(1); 
         }
-               
+        
+        
     }
     @Test
     public void usersHasBeenAddedToDatabase() throws SQLException{
         try{
-            reserveDao.list();
+            userDao.list();
         }catch(Exception e){
-            reserveDao.read(1); 
+            userDao.read(1); 
         }
         
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    
 }

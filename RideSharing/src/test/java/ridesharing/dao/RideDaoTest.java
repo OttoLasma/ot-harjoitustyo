@@ -15,48 +15,59 @@ import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.verify;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ridesharing.domain.Reserve;
+import ridesharing.domain.Ride;
 
 /**
  *
  * @author ottlasma
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ReserveDaoTest {
+public class RideDaoTest {
     @InjectMocks
-    ReserveDao reserveDao;
+    RideDao rideDao;
     @Mock
     JdbcTemplate jdbcTemplate;
-    
-    
-    public ReserveDaoTest() {
+    public RideDaoTest() {
     }
     
+    @BeforeClass
+    public static void setUpClass() {
+    }
     
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
     @Test
     public void findByKeyTest() throws SQLException{
-        reserveDao.read(1);  
+        rideDao.read(1);  
     }
     @Test
     public void createTest() throws SQLException{
         
-        Reserve reserve = new Reserve("name", "surname", 1, 1,  "username",  1);
+        Ride ride = new Ride("name", "surname", 1, 1,  "username",  1);
         try{
-            reserveDao.create(reserve);
+            rideDao.create(ride);
         }catch(Exception e){
-            reserveDao.read(1); 
+            rideDao.read(1); 
         }
                
     }
     @Test
     public void usersHasBeenAddedToDatabase() throws SQLException{
         try{
-            reserveDao.list();
+            rideDao.list();
         }catch(Exception e){
-            reserveDao.read(1); 
+            rideDao.read(1); 
         }
         
     }

@@ -9,11 +9,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ridesharing.dao.ReserveDao;
 import ridesharing.dao.RideDao;
 import ridesharing.dao.UserDao;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 
 /**
  * this class provides some methods that are needed in interface
@@ -83,7 +89,8 @@ public class RidesharingService {
     }
 
     /**
-     *method inserts new ride to database
+     * method inserts new ride to database
+     *
      * @param ride
      * @throws SQLException
      */
@@ -92,7 +99,8 @@ public class RidesharingService {
     }
 
     /**
-     *method inserts new reserve to database
+     * method inserts new reserve to database
+     *
      * @param reserve
      * @throws SQLException
      */
@@ -101,7 +109,9 @@ public class RidesharingService {
     }
 
     /**
-     *method updates the available status of chosen ride and in addition creates new reserve for that specific ride
+     * method updates the available status of chosen ride and in addition
+     * creates new reserve for that specific ride
+     *
      * @param list
      * @param variable
      * @param userId
@@ -114,18 +124,69 @@ public class RidesharingService {
         rideDao.update(ride);
         Reserve reserve = new Reserve(ride.getDeparturelocation(), ride.getDestinationlocation(), ride.getPrice(), ride.getSeats(), ride.getDate(), userId);
         reserveDao.create(reserve);
+        List<User> listUsers = userDao.list();
+        String userEmail = "";
+        for(User user:listUsers){
+            if(user.getId() == ride.getUserId()){
+                userEmail = user.getEmail();
+            }
+        }
         
+        boolean emailStatus = false;
+        try {
+            emailStatus = sendEmail(userEmail);
+        } catch (EmailException ex) {
+            System.out.println("Notification email cannot be sent");
+        }
+        System.out.println(emailStatus);
+
     }
 
     /**
-     * Method returns current user's user id in case available.
-     *
-     * @param username
-     * @param password
-     * @return user id or error value
-     * @throws SQLException
+     *method sends an email to the user that has previously added the ride in question
+     * @param userEmail
+     * @return
+     * @throws EmailException
      */
-    public int correctCredentials(String username, String password) throws SQLException {
+    public boolean sendEmail(String userEmail) throws EmailException {
+        try{
+            
+        Email email = new SimpleEmail();
+        email.setHostName("smtp.googlemail.com");
+        email.setSmtpPort(465);
+        email.setAuthenticator(new DefaultAuthenticator("ridesharingpirssi@gmail.com", "ridesharing"));
+
+        // Required for gmail
+        email.setSSLOnConnect(true);
+        // Sender
+        email.setFrom("ridesharingpirssi@gmail.com");
+
+        // Email title
+        email.setSubject("RideSharing Pirssi");
+
+        // Email message.
+        email.setMsg("Your ride has been reserved!");
+
+        // Receiver
+        email.addTo(userEmail);
+        email.send();
+        System.out.println("Sent!!");
+        return true;
+    }catch (Exception e) {
+            return false;
+        }
+    }
+
+
+/**
+ * Method returns current user's user id in case available.
+ *
+ * @param username
+ * @param password
+ * @return user id or error value
+ * @throws SQLException
+ */
+public int correctCredentials(String username, String password) throws SQLException {
         for (User user : userDao.list()) {
             if (user.getUsername().equals(username)) {
                 if (user.getPassword().equals(password)) {
@@ -189,6 +250,7 @@ public class RidesharingService {
         }
         return list;
     }
+    
     
 
 }
