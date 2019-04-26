@@ -126,12 +126,9 @@ public class RidesharingService {
         reserveDao.create(reserve);
         List<User> listUsers = userDao.list();
         String userEmail = "";
-        for(User user:listUsers){
-            if(user.getId() == ride.getUserId()){
-                userEmail = user.getEmail();
-            }
+        for (User user : listUsers) {
+            if (user.getId() == ride.getUserId()) { userEmail = user.getEmail(); }
         }
-        
         boolean emailStatus = false;
         try {
             emailStatus = sendEmail(userEmail);
@@ -139,54 +136,54 @@ public class RidesharingService {
             System.out.println("Notification email cannot be sent");
         }
         System.out.println(emailStatus);
-
     }
 
     /**
-     *method sends an email to the user that has previously added the ride in question
+     * method sends an email to the user that has previously added the ride in
+     * question
+     *
      * @param userEmail
      * @return
      * @throws EmailException
      */
     public boolean sendEmail(String userEmail) throws EmailException {
-        try{
-            
-        Email email = new SimpleEmail();
-        email.setHostName("smtp.googlemail.com");
-        email.setSmtpPort(465);
-        email.setAuthenticator(new DefaultAuthenticator("ridesharingpirssi@gmail.com", "ridesharing"));
+        try {
 
-        // Required for gmail
-        email.setSSLOnConnect(true);
-        // Sender
-        email.setFrom("ridesharingpirssi@gmail.com");
+            Email email = new SimpleEmail();
+            email.setHostName("smtp.googlemail.com");
+            email.setSmtpPort(465);
+            email.setAuthenticator(new DefaultAuthenticator("ridesharingpirssi@gmail.com", "ridesharing"));
 
-        // Email title
-        email.setSubject("RideSharing Pirssi");
+            // Required for gmail
+            email.setSSLOnConnect(true);
+            // Sender
+            email.setFrom("ridesharingpirssi@gmail.com");
 
-        // Email message.
-        email.setMsg("Your ride has been reserved!");
+            // Email title
+            email.setSubject("RideSharing Pirssi");
 
-        // Receiver
-        email.addTo(userEmail);
-        email.send();
-        System.out.println("Sent!!");
-        return true;
-    }catch (Exception e) {
+            // Email message.
+            email.setMsg("Your ride has been reserved!");
+
+            // Receiver
+            email.addTo(userEmail);
+            email.send();
+            System.out.println("Sent!!");
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }
 
-
-/**
- * Method returns current user's user id in case available.
- *
- * @param username
- * @param password
- * @return user id or error value
- * @throws SQLException
- */
-public int correctCredentials(String username, String password) throws SQLException {
+    /**
+     * Method returns current user's user id in case available.
+     *
+     * @param username
+     * @param password
+     * @return user id or error value
+     * @throws SQLException
+     */
+    public int correctCredentials(String username, String password) throws SQLException {
         for (User user : userDao.list()) {
             if (user.getUsername().equals(username)) {
                 if (user.getPassword().equals(password)) {
@@ -250,7 +247,5 @@ public int correctCredentials(String username, String password) throws SQLExcept
         }
         return list;
     }
-    
-    
 
 }
