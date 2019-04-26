@@ -4,7 +4,7 @@
 
 Koodin pakkausrakenne on seuraavanlainen:
 
-kuva
+![pakausrakenne](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/pakkauskaavio.jpeg "pakkausrakenne")
 
 Pakkaus _riderharing.ui_ sisältää tekstikäyttöliittymän, sekä tietokantojen ja springin alustamiseen tarvittavat komennot, pakkaus _riderharing.domain_ sisältää suurimman osan sovelluksen sovelluslogiikasta ja pakkaus _riderharing.dao_ sisältää tietokantoihin liittyvät toiminnallisuudet. Huomattavaa on, ettö osa sovelluslogiikasta on pakkauksessa _RideSharing.dao_, sillä bean ja spring mahdollistaa todella yksinkertaisia keinoa erilaisten toiminnallisuuksien toteuttamiseen. 
 
@@ -18,7 +18,7 @@ Sovelluslogiikka on suurimmilta osin pystytty eristämään käyttöliittymäst�
 
 RideSharing -sovelluksen looginen datamalli muodostuu luokista Reserve, Ride sekä User, jota hahmoittaa alla oleva kuva:
 
-kuva
+![sovelluslogiikka](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/luokkakaavio.jpeg "sovelluslogiikka")
 
 Sovelluksen toiminnallisuuksista vastaa RidesharingService luokan olio. Jokaiselle toiminnallisuudelle on pyritty luomaan oma metodi, mutta myös erilaiset tarkistuksen (esim. onko käyttäjätunnus varattu) on suoritettu tämän samaisen luokan puitteissa. Päällimäinen tarkoitus tässä on ollut erittää käyttöliittymä mahdollisimman kokonaisvaltaisesti sovelluslogiikasta. RidesharingService luokka/olio pitää sisällään seuraavat metodit:
 
@@ -47,7 +47,7 @@ RidesharingService -luokka tekee muokkaukset tietokantoihin _ReserveDao, RideDao
 
 Yllä todettua havainnollistaaa alla oleva kuva pakkauskaaviosta:
 
-kuva
+![Pakkauskaavio](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/kolmas.jpeg "pakkauskaavio")
 
 <h2> Tietojen tallentaminen tietokantaan </h2> 
 
