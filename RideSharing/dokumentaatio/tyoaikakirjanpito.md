@@ -8,4 +8,5 @@
 | 09.4. | 14   | dokumentaation päivittäminen, checkstylen luominen, 90% ajasta kuitenkin springin kanssa taistelua |
 | 15.4. | 5    | dokumentaation päivittäminen ja käyttöliittymän selkeyttäminen|
 | 22.4. | 5    | spring osoittautui todella suureksi virheeksi - tämän aiheuttamien ongelmien korjaaminen|
+| 25.4. | 5    | javadock, dokumentaatio, koodin laadun parantaminen|
 

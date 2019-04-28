@@ -68,7 +68,7 @@ Tässä käyttäjää pyydetään täyttämään kyydin yleiset tiedot, jotka ov
 
 4. Vapaana olevan kyydin varaaminen ("Reserve a ride from available rides")
 
-- Käyttäjän tulee valita vapaista kyydeistä itselle mieluinen kyyti tietokannasta, joka varataan hänelle ja edelleen poistetaan vapaiden kyytien listasta. Mikäli mieluisaa kyytie ei ole tajolla, voi näkymästä poistua painamalla "x".
+- Käyttäjän tulee valita vapaista kyydeistä itselle mieluinen kyyti tietokannasta, joka varataan hänelle ja edelleen poistetaan vapaiden kyytien listasta. Onnistunut kyydin varaaminen lähettää kyydin ilmoittaneelle henkilölle sähköpostiviestin asiasta. Mikäli mieluisaa kyytie ei ole tajolla, voi näkymästä poistua painamalla "x".
 
 5. Käyttäjän varaamien kyytien tarkastelu ("List all of the rides that have been reserved by you")
 
