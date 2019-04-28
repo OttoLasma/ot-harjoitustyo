@@ -38,7 +38,7 @@ public class Ride {
      */
     @Override
     public String toString() {
-        return this.getDeparturelocation() + " " + " " + this.getDestinationlocation() + " " + " " + this.getPrice() + " " + this.getSeats() + " " + this.getDate();
+        return this.getDeparturelocation() + " " + " " + this.getDestinationlocation() + " " + " " + this.getPrice() + "€ " + this.getSeats() + " " + this.getDate();
     }
 
     /**
