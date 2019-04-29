@@ -7,7 +7,27 @@ tähän linkki
 
 <h2> Konfigurointi </h2> 
 
-Sovellus ei edellytä käyttäjältä toimenpiteitä ennen sovelluksen suorittamista. Käynnistyshakemistoon ei esimerkiksi tarvitse luoda tiedostoja tai muuta vastaavaa.
+Sovellus edellyttää, että polussa:
+
+```
+src/main/resources 
+```
+
+on lisättynä _application.properties_ niminen tiedosto, jonka sisältö kokonaisuudessaan on seuraavanlainen:
+
+```
+spring.datasource.url=jdbc:h2:./RideSharingDatabases
+
+spring.datasource.driverClassName=org.h2.Driver
+
+spring.datasource.username=sa
+
+spring.datasource.password=
+
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+```
+
+
 
 <h2> Ohjelman käynnistäminen </h2>
 
