@@ -5,17 +5,16 @@
  */
 package ridesharing.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
+import ridesharing.domain.Reserve;
+import ridesharing.domain.Ride;
+import ridesharing.domain.User;
 import ridesharing.domain.Ride;
 
 /**
@@ -24,12 +23,13 @@ import ridesharing.domain.Ride;
  * 
  * @author ottlasma
  */
-@Component
+
 public class RideDao implements RideSharingDao<Ride, Integer> {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
+    private Connection conn;
+    public RideDao(Connection conn){
+        this.conn = conn;
+    }
     /**
      *method enables to insert new ride to the database. values are taken from provided parameters
      * 
@@ -39,23 +39,22 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
      */
     @Override
     public void create(Ride ride) throws SQLException {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection -> {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Ride"
-                    + " (departurelocation, destinationlocation, price, seats, date, userId, available)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, ride.getDeparturelocation());
-            stmt.setString(2, ride.getDestinationlocation());
-            stmt.setInt(3, ride.getPrice());
-            stmt.setInt(4, ride.getSeats());
-            stmt.setString(5, ride.getDate());
-            stmt.setInt(6, ride.getUserId());
-            stmt.setInt(7, ride.getAvailable());
-            return stmt;
-        }, keyHolder);
-        ride.setId(keyHolder.getKey().intValue());
+        String sql = "INSERT INTO Ride(departurelocation, destinationlocation, price, seats, date, userId, available) VALUES(?,?,?,?,?,?,?)";
+        PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        pstmt.setString(1, ride.getDeparturelocation());
+        pstmt.setString(2, ride.getDestinationlocation());
+        pstmt.setInt(3, ride.getPrice());
+        pstmt.setInt(4, ride.getSeats());
+        pstmt.setString(5, ride.getDate());
+        pstmt.setInt(6, ride.getUserId());
+        pstmt.setInt(7, ride.getAvailable());
+        pstmt.executeUpdate();
+        String sql2 = "select last_insert_rowid()";
+        PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+        ResultSet rs = pstmt2.executeQuery();
+        ride.setId(rs.getInt(1));
     }
+    
 
     /**
      *method returns ride which has the same key as provided 
@@ -67,11 +66,11 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
      */
     @Override
     public Ride read(Integer key) throws SQLException {
-        Ride ride = jdbcTemplate.queryForObject(
-                "SELECT * FROM Ride WHERE id = ?",
-                new BeanPropertyRowMapper<>(Ride.class),
-                key);
-
+        String sql = "SELECT * FROM Ride WHERE id = " + key;
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        Ride ride = new Ride(rs.getString("departurelocation"), rs.getString("destinationlocation"), rs.getInt("price"), rs.getInt("seats"), rs.getString("date"), rs.getInt("userId"), rs.getInt("available"));
+        ride.setId(rs.getInt("id"));
         return ride;
     }
 
@@ -85,16 +84,17 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
      */
     @Override
     public Ride update(Ride ride) throws SQLException {
-        jdbcTemplate.update("UPDATE Ride SET departurelocation = ?, destinationlocation = ?, price = ?, seats = ?, date = ?, userId = ?, available = ? WHERE id = ?",
-                ride.getDeparturelocation(),
-                ride.getDestinationlocation(),
-                ride.getPrice(),
-                ride.getSeats(),
-                ride.getDate(),
-                ride.getUserId(),
-                ride.getAvailable(),
-                ride.getId());
-
+        String sql = "UPDATE Ride SET departurelocation = ?, destinationlocation = ?, price = ?, seats = ?, date = ?, userId = ? , available = ? WHERE id = ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, ride.getDeparturelocation());
+        pstmt.setString(2, ride.getDestinationlocation());
+        pstmt.setInt(3, ride.getPrice());
+        pstmt.setInt(4, ride.getSeats());
+        pstmt.setString(5, ride.getDate());
+        pstmt.setInt(6, ride.getUserId());
+        pstmt.setInt(7, ride.getAvailable());
+        pstmt.setInt(8, ride.getId());
+        pstmt.executeUpdate();
         return ride;
     }
 
@@ -107,9 +107,16 @@ public class RideDao implements RideSharingDao<Ride, Integer> {
      */
     @Override
     public List<Ride> list() throws SQLException {
-        return jdbcTemplate.query(
-                "SELECT * FROM Ride",
-                new BeanPropertyRowMapper<>(Ride.class));
+        String sql = "SELECT * FROM Ride";
+        List<Ride> rides = new ArrayList<>();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            Ride ride = new Ride(rs.getString("departurelocation"), rs.getString("destinationlocation"), rs.getInt("price"), rs.getInt("seats"), rs.getString("date"), rs.getInt("userId"), rs.getInt("available"));
+            ride.setId(rs.getInt("id"));
+            rides.add(ride);
+        }
+        return rides;
         
     }
 }

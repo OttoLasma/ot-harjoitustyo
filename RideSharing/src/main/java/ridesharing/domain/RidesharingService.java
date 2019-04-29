@@ -5,14 +5,14 @@
  */
 package ridesharing.domain;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 import ridesharing.dao.ReserveDao;
 import ridesharing.dao.RideDao;
 import ridesharing.dao.UserDao;
@@ -27,20 +27,24 @@ import org.apache.commons.mail.SimpleEmail;
  *
  * @author ottlasma
  */
-@Component
+
 public class RidesharingService {
 
-    @Autowired
+    
     RideDao rideDao;
-    @Autowired
+    
     UserDao userDao;
-    @Autowired
+    
     ReserveDao reserveDao;
-
+    public RidesharingService(Connection conn){
+        rideDao = new RideDao(conn);
+        userDao = new UserDao(conn);
+        reserveDao = new ReserveDao(conn);
+    }
     /**
      * method asks username until user provides username that has not been added
      * to the databases. When valid username is given method returns this
-     * username.
+     * username.  
      *
      *
      * @param username

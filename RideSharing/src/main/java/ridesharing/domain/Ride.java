@@ -31,6 +31,15 @@ public class Ride {
         this.available = 0;
         this.userId = userId;
     }
+    public Ride(String departurelocation, String destinationlocation, int price, int seats, String date, int userId, int available) {
+        this.departurelocation = departurelocation;
+        this.destinationlocation = destinationlocation;
+        this.price = price;
+        this.seats = seats;
+        this.date = date;
+        this.available = available;
+        this.userId = userId;
+    }
 
     /**
      * method specifies how ride is supposed to print

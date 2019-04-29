@@ -1,16 +1,12 @@
 package ridesharing.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
 import ridesharing.domain.User;
 
 /**
@@ -19,12 +15,13 @@ import ridesharing.domain.User;
  * 
  * @author ottlasma
  */
-@Component
+
 public class UserDao implements RideSharingDao<User, Integer> {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
+    private Connection conn;
+    public UserDao(Connection conn) {
+        this.conn = conn;
+    }
     /**
      *method enables to insert new user to database user. 
      * 
@@ -33,22 +30,19 @@ public class UserDao implements RideSharingDao<User, Integer> {
      */
     @Override
     public void create(User user) throws SQLException {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection -> {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO User"
-                    + " (name, surname, phone, email, username, password)"
-                    + " VALUES (?, ?, ?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getSurname());
-            stmt.setString(3, user.getPhone());
-            stmt.setString(4, user.getEmail());
-            stmt.setString(5, user.getUsername());
-            stmt.setString(6, user.getPassword());
-            return stmt;
-        }, keyHolder);
-        user.setId(keyHolder.getKey().intValue());
-
+        String sql = "INSERT INTO USER(name, surname, phone, email, username, password) VALUES(?,?,?,?,?,?)";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, user.getName());
+        pstmt.setString(2, user.getSurname());
+        pstmt.setString(3, user.getPhone());
+        pstmt.setString(4, user.getEmail());
+        pstmt.setString(5, user.getUsername());
+        pstmt.setString(6, user.getPassword());
+        pstmt.executeUpdate();
+        String sql2 = "select last_insert_rowid()";
+        PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+        ResultSet rs = pstmt2.executeQuery();
+        user.setId(rs.getInt(1));
     }
 
     /**
@@ -61,11 +55,11 @@ public class UserDao implements RideSharingDao<User, Integer> {
      */
     @Override
     public User read(Integer key) throws SQLException {
-        User user = jdbcTemplate.queryForObject(
-                "SELECT * FROM User WHERE id = ?",
-                new BeanPropertyRowMapper<>(User.class),
-                key);
-
+        String sql = "SELECT * FROM User WHERE id = " + key;
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        User user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("phone"), rs.getString("email"), rs.getString("username"), rs.getString("password"));
+        user.setId(rs.getInt("id"));
         return user;
     }
 
@@ -78,15 +72,16 @@ public class UserDao implements RideSharingDao<User, Integer> {
      */
     @Override
     public User update(User user) throws SQLException {
-        jdbcTemplate.update("UPDATE User SET name = ?, surname = ?, phone = ?, email = ?, username = ?, password = ? WHERE id = ?",
-                user.getName(),
-                user.getSurname(),
-                user.getPhone(),
-                user.getEmail(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getId());
-
+        String sql = "UPDATE User SET name = ?, surname = ?, phone = ?, email = ?, username = ?, password = ? WHERE id = ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, user.getName());
+        pstmt.setString(2, user.getSurname());
+        pstmt.setString(3, user.getPhone());
+        pstmt.setString(4, user.getEmail());
+        pstmt.setString(5, user.getUsername());
+        pstmt.setString(6, user.getPassword());
+        pstmt.setInt(7, user.getId());
+        pstmt.executeUpdate();
         return user;
     }
 
@@ -98,9 +93,15 @@ public class UserDao implements RideSharingDao<User, Integer> {
      */
     @Override
     public List<User> list() throws SQLException {
-        return jdbcTemplate.query(
-                "SELECT * FROM User",
-                new BeanPropertyRowMapper<>(User.class));
-        
+        String sql = "SELECT * FROM User";
+        List<User> users = new ArrayList<>();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            User user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("phone"), rs.getString("email"), rs.getString("username"), rs.getString("password"));
+            user.setId(rs.getInt("id"));
+            users.add(user);
+        }
+        return users;
     }
 }

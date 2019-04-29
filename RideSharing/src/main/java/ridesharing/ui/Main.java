@@ -2,43 +2,99 @@ package ridesharing.ui;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.sqlite.JDBC;
 
 
-@SpringBootApplication(scanBasePackages = {"ridesharing.ui", "ridesharing.domain", "ridesharing.dao"})
-public class Main implements CommandLineRunner {
+public class Main {
 
-    public static void main(String[] args) throws SQLException {
-        SpringApplication.run(Main.class);
-    }
-    @Autowired
-    TextUserInterface tekstikayttoliittyma;
-
-    @Override
-    public void run(String... args) throws Exception {
-        prepareDatabases();
+    static Connection conn;
+    static String fullname;
+    public static void main(String[] args) throws SQLException {  
         Scanner scanner = new Scanner(System.in);
-        tekstikayttoliittyma.start(scanner);
+        System.out.println("Name the used database");
+        String tietokanta = scanner.nextLine();
+        fullname = "jdbc:sqlite:" + tietokanta + ".db";
+        conn = getConnection();
+        createTables();
+        TextUserInterface textInterface = new TextUserInterface();
+        textInterface.start(scanner, conn);
     }
+    public static Connection getConnection() {
+        if (conn == null) {
+            String url = fullname;
+            try {
+                DriverManager.registerDriver(new JDBC());
+                conn = DriverManager.getConnection(url);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return conn;
+    }
+    public static void createTables() {
 
-    private void prepareDatabases() {
-        try (Connection conn = DriverManager.getConnection("jdbc:h2:./RideSharingDatabases", "sa", "")) {
-//            conn.prepareStatement("DROP TABLE User IF EXISTS;").executeUpdate();
-//            conn.prepareStatement("CREATE TABLE User(id integer auto_increment, name varchar(255), surname varchar(255), phone varchar(255), email varchar(255), username varchar(255), password varchar(255), primary key (id));").executeUpdate();
-//            conn.prepareStatement("DROP TABLE Ride IF EXISTS;").executeUpdate();
-//            conn.prepareStatement("CREATE TABLE Ride(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), userId integer, available integer, primary key (id), foreign key (userId) references User(id));").executeUpdate();
-//            conn.prepareStatement("DROP TABLE Reserve IF EXISTS;").executeUpdate();
-//            conn.prepareStatement("CREATE TABLE Reserve(id integer auto_increment, departurelocation varchar(255), destinationlocation varchar(255), price integer, seats integer, date varchar(255), userId integer, available integer, primary key (id), foreign key (userId) references User(id));").executeUpdate();
+        String url = fullname;
+        String sql = "CREATE TABLE IF NOT EXISTS User (\n"
+                + " id integer PRIMARY KEY AUTOINCREMENT,\n"
+                + " name text NOT NULL,\n"
+                + " surname text NOT NULL,\n"
+                + " phone text NOT NULL,\n"
+                + " email text NOT NULL,\n"
+                + " username text NOT NULL,\n"
+                + " password text NOT NULL\n"
+                + ");";
 
-        } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        try (Connection conn = DriverManager.getConnection(url);
+                Statement stmt = conn.createStatement()) {
+            // create a new table 
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        String sqlRide = "CREATE TABLE IF NOT EXISTS Ride (\n"
+                + " id integer PRIMARY KEY AUTOINCREMENT, \n"
+                + " departurelocation text NOT NULL,\n"
+                + " destinationlocation text NOT NULL,\n"
+                + " price integer NOT NULL, \n"
+                + " seats integer NOT NULL,\n"
+                + " date text NOT NULL,\n"
+                + " userId integer NOT NULL,\n"
+                + " available integer NOT NULL,\n"
+                + " FOREIGN KEY (userId) references User(id) \n"
+                + " );";
+        try (Connection conn = DriverManager.getConnection(url);
+                Statement stmt = conn.createStatement()) {
+            // create a new table 
+            stmt.execute(sqlRide);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        String sqlReserve = "CREATE TABLE IF NOT EXISTS Reserve (\n"
+                + " id integer PRIMARY KEY AUTOINCREMENT, \n"
+                + " departurelocation text NOT NULL,\n"
+                + " destinationlocation text NOT NULL,\n"
+                + " price integer NOT NULL, \n"
+                + " seats integer NOT NULL,\n"
+                + " date text NOT NULL,\n"
+                + " userId integer NOT NULL,\n"
+                + " available integer NOT NULL,\n"
+                + " FOREIGN KEY (userId) references User(id) \n"
+                + " );";
+        try (Connection conn = DriverManager.getConnection(url);
+                Statement stmt = conn.createStatement()) {
+            // create a new table 
+            stmt.execute(sqlReserve);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -1,5 +1,6 @@
 package ridesharing.ui;
 
+import java.sql.Connection;
 import ridesharing.domain.Ride;
 import ridesharing.dao.RideDao;
 import ridesharing.domain.User;
@@ -8,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired;
 import ridesharing.dao.ReserveDao;
 import ridesharing.domain.Reserve;
 import ridesharing.domain.RidesharingService;
@@ -19,13 +18,14 @@ import ridesharing.domain.RidesharingService;
  *provides interface for the application
  * @author ottlasma
  */
-@Component
+
 public class TextUserInterface {
 
     
-    @Autowired
+   
     RidesharingService serviceDao;
     private Scanner scanner;
+    private Connection conn;
 
     public TextUserInterface() {
 
@@ -37,8 +37,10 @@ public class TextUserInterface {
      * @param scanner
      * @throws SQLException
      */
-    public void start(Scanner scanner) throws SQLException {
+    public void start(Scanner scanner, Connection connection) throws SQLException {
         this.scanner = scanner;
+        this.conn = connection;
+        serviceDao = new RidesharingService(conn);
 
         while (true) {
             System.out.println("Commands: ");
@@ -77,14 +79,14 @@ public class TextUserInterface {
                 int variableId = serviceDao.correctCredentials(username, password);
                 if (variableId == -10) {
                     System.out.println("Incorrect username or password");
-                    start(scanner);
+                    start(scanner, conn);
                 } else {
                     System.out.println("Correct credentials!");
                     features(serviceDao.readUser(variableId));
                 }
             }else{
                 System.out.println("invalid command");
-                start(scanner);
+                start(scanner, conn);
             }
         }
     }
@@ -106,7 +108,7 @@ public class TextUserInterface {
             System.out.println(" x - Log out");
             String command = scanner.nextLine();
             if (command.equals("x")) {
-                start(scanner);
+                start(scanner, conn);
             }
             else if (command.equals("1")) {
                 System.out.println("Provide the needed information below in order to add new ride:");
@@ -116,7 +118,7 @@ public class TextUserInterface {
                 String destination = scanner.nextLine();
                 System.out.println("Total price for the ride");
                 int price = Integer.parseInt(scanner.nextLine());
-                System.out.println("Number of available rides");
+                System.out.println("Number of available seats");
                 int seats = Integer.parseInt(scanner.nextLine());
                 System.out.println("Estimated Time and date of the departure (mm/dd-hh/mm)");
                 String date = scanner.nextLine();
@@ -152,8 +154,10 @@ public class TextUserInterface {
                 String variable = scanner.nextLine();
                 if (variable.equals("x")) {
                     features(user);
-                }            
+                }    
+                user.getId();
                 serviceDao.reserveRideAndReserve(list, variable, user.getId());
+                
                 System.out.println("Ride has been reserved!");
             }
             else if (command.equals("5")) {
