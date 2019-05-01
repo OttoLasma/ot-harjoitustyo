@@ -75,6 +75,8 @@ public class RideDaoTest {
     
     @After
     public void after() throws SQLException{
+        File newFile = new File("testRide.db");
+        newFile.delete();
         conn.close();
     }
     @Test

@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.mail.EmailException;
@@ -40,6 +41,7 @@ public class RidesharingServiceTest {
 
     public RidesharingServiceTest() {
         filename = "jdbc:sqlite:testiService.db";
+        
     }
     public Connection getConnection() {
         if (conn == null) {
@@ -58,6 +60,8 @@ public class RidesharingServiceTest {
     public void before() {
         conn = getConnection();
         serviceDao = new RidesharingService(conn);
+        rideDao = new RideDao(conn);
+        reserveDao = new ReserveDao(conn);
         userDao = new UserDao(conn);
         String url = filename;
         String sql = "CREATE TABLE IF NOT EXISTS User (\n"
@@ -131,14 +135,14 @@ public class RidesharingServiceTest {
         List<Ride> list = serviceDao.returnListofUsersRides(userId);
         assertTrue(list.size() == 0);
     }
-//    @Test
-//    public void returnListofAvailableRidesTest()throws SQLException{
-//        Ride t1 = new Ride("helsinki", "tampere", 4, 3, "840925", 3);
-//        
-//        rideDao.create(t1);
-//        List<Ride> list = serviceDao.returnListofAvailableRides();
-//        assertTrue(list.size() == 1);
-//    }
+    @Test
+    public void returnListofAvailableRidesTest()throws SQLException{
+        Ride t1 = new Ride("helsinki", "tampere", 4, 3, "840925", 3);
+        
+        rideDao.create(t1);
+        List<Ride> list = serviceDao.returnListofAvailableRides();
+        assertTrue(list.size() == 1);
+    }
     @Test
     public void correctCredentialsTest()throws SQLException{
         User user = new User("otto", "lasma", "0458848862", "otto.lasma@aalto.fi", "ottola", "kala");
@@ -168,32 +172,53 @@ public class RidesharingServiceTest {
         assertTrue((varibale2 - varibale) == 1);
         
     }
-//    @Test
-//    public void createReserveTestThroughService()throws SQLException{
-//        Reserve reserve = new Reserve("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
-//        serviceDao.createReserve(reserve);
-//        int varibale = reserveDao.list().size();
-//        Reserve reserveTest = new Reserve("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
-//        serviceDao.createReserve(reserveTest);
-//        int varibale2 = reserveDao.list().size();
-//        assertTrue((varibale2 - varibale) == 1);
-//        
-//    }
-//    @Test
-//    public void createRideTestThroughService()throws SQLException{
-//        Ride ride = new Ride("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
-//        serviceDao.createRide(ride);
-//        int varibale = rideDao.list().size();
-//        Ride rideTest = new Ride("otto55fda55", "lasma11", 2, 1, "fjkdfadallaf11", 1);
-//        serviceDao.createRide(rideTest);
-//        int varibale2 = rideDao.list().size();
-//        assertTrue((varibale2 - varibale) == 1);
-//        
-//    }
+    @Test
+    public void createReserveTestThroughService()throws SQLException{
+        Reserve reserve = new Reserve("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
+        serviceDao.createReserve(reserve);
+        int varibale = reserveDao.list().size();
+        Reserve reserveTest = new Reserve("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
+        serviceDao.createReserve(reserveTest);
+        int varibale2 = reserveDao.list().size();
+        assertTrue((varibale2 - varibale) == 1);
+        
+    }
+    @Test
+    public void createRideTestThroughService()throws SQLException{
+        Ride ride = new Ride("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
+        serviceDao.createRide(ride);
+        int varibale = rideDao.list().size();
+        Ride rideTest = new Ride("otto55fda55", "lasma11", 2, 1, "fjkdfadallaf11", 1);
+        serviceDao.createRide(rideTest);
+        int varibale2 = rideDao.list().size();
+        assertTrue((varibale2 - varibale) == 1);
+        
+    }
+    @Test
+    public void readUserTestThroughService()throws SQLException{
+        User user = new User("kovanen", "lasma", "43820943", "fjdlaksf", "fjkdallaf", "jfdlkfsa");
+        serviceDao.createUser(user);
+        User userTest  = serviceDao.readUser(user.getId());
+        assertTrue(user.getName().equals(userTest.getName()));
+        
+    }
+    @Test
+    public void checkWhetherUsernameHasAlreadyBeenTakenTest()throws SQLException{
+        User user = new User("kovanen", "lasma", "43820943", "fjdlaksf", "fjkdallaf", "jfdlkfsa");
+        serviceDao.createUser(user);
+        Scanner scanner = new Scanner(System.in);
+        String usernameTest  = serviceDao.usernameHasAlreadyTaken("plahahah", scanner);
+        assertTrue(usernameTest.equals("plahahah"));
+        
+    }
+    
+    
 
    
     @After
     public void after() throws SQLException{
+        File newFile = new File("testiService.db");
+        newFile.delete();
         conn.close();
     }
     @Test

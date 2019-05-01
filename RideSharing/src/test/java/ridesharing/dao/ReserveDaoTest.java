@@ -73,6 +73,8 @@ public class ReserveDaoTest {
     
     @After
     public void after() throws SQLException{
+        File newFile = new File("testiReserve.db");
+        newFile.delete();
         conn.close();
     }
     @Test

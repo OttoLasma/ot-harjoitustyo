@@ -73,6 +73,8 @@ public class UserDaoTest {
     
     @After
     public void after() throws SQLException{
+        File newFile = new File("testiUser.db");
+        newFile.delete();
         conn.close();
     }
     @Test
