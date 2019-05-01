@@ -19,7 +19,7 @@ Sovelluksen tarkoitus on mahdollistaa kyytien lisäämisen ja toisaalta myös eh
 
 - [Viikko 6](https://github.com/OttoLasma/ot-harjoitustyo/releases/tag/viikko6)
 
-- [Viikko 6](https://github.com/OttoLasma/ot-harjoitustyo/releases/tag/viikko6)
+- [Loppupalautus](https://github.com/OttoLasma/ot-harjoitustyo/releases/tag/loppupalautus)
 
 
 <h2> Komentorivitoiminnot </h2>
