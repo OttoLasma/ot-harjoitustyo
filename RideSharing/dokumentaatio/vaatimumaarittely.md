@@ -10,13 +10,14 @@ Sovelluksella on yksi käyttäjäroolia, jolloin kaikilla käyttäjillä on mahd
 <h2> Perusversion tarjoamat toiminnallisuudet </h2>
 <h3> Ennen kirjautumista </h3>
 
+- Sovelluksen käyttäjä nimeää käytettävän tietokanta tidoston nimen.
 - Sovelluksen käyttäjät voivat luoda uuden käyttäjätunnuksen
   - Tunnuksen tulee olla sellaisen, ettei se ole käytössä muilla käyttäjillä. Lisäksi kirjautmisen yhteydessä käyttäjältä edellytetään nimen, sukunimen, puhelinnumeron, sähköpostin, sekä salasanan täyttämistä.
 - Käyttäjätunnuksen luonut henkilö voi kirjautua sovellukseen
   - Kirjautuminen onnistuu, mikäli käyttäjätunnus on oikein kirjoitettu. Kirjautumisessa edellytetään myös salasanan syöttämistä.
  <h3> Kirjautumisen jälkeen </h3>
  
-- Käyttäjällä on valittavissa viisi toiminnallisuutta, jotka ovat seuraavat: kyydin varaaminen, kättäjän itsensä tekemien kyytien tarkastelu, käyttäjän itsensä tekemien varausten tarkastelu, kyytien tarkastelu, sekä kyydin lisääminen. 
+- Käyttäjällä on valittavissa kuusi toiminnallisuutta, jotka ovat seuraavat: kyydin varaaminen, kättäjän itsensä tekemien kyytien tarkastelu, käyttäjän itsensä tekemien varausten tarkastelu, kyytien tarkastelu, yhteenveto käyttäjän kyydeistä sekä kyydin lisääminen. 
 - Kyydin lisäämisen yhteydessä edellytetään seuraavat tiedot: päivämäärä, lähtöpaikka, hinta, määränpää ja vapaiden paikkojen lukumäärä.
 - Onnistunut kyydin lisäys lisää tämän samaisen kyydin vapaisiin kyyteihin, jossa on katsottavissa kaikki avoinna olevat kyydit.
 - Käyttäjä voi valita mieleisensä avoimen kyydin ja merkata sen käytetyksi, jollain samainen kyyti katoaa avoimien kyytien listauksesta. Tällöin kyydin ilmoittaneelle henkilölle lähetetään sähköposti asiasta.
@@ -24,7 +25,7 @@ Sovelluksella on yksi käyttäjäroolia, jolloin kaikilla käyttäjillä on mahd
 
 <h3> Jatkokehitysideoita </h3>
 
-- Käyttäjillä on mahdollisuus tarkastella itse hyväksymänsä kyyti ehdotukset.
+
 - Käyttäjät voivat tarkastella vain itse lisäämiään kyytejä ja muokana niitä halutusti, esimerkiksi poistaa aikaisemmin ilmoitettu kyyti.
 - Kyytiehdotuksesta ei paljastettaisi listauksen yhteydessä, kuin kuljettajan kuvaus, määränpää, hinta, lähtöpaikka ja ajankohta - mahdolliset kuljettajan yhteystiedot tulisivat näkyviin vasta, kun kyyti on hyväksytty.
 - Käyttäjillä on mahdollisuus lisätä saldoa omalle käyttätunnukselleen, josta maksu voitaisiin suorittaa. 
