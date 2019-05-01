@@ -3,7 +3,7 @@
 
 <h2> Suorittamiseen tarvittava jar-tiedosto </h2>
 
-![Loppupalautus jar](https://github.com/OttoLasma/ot-harjoitustyo/releases/tag/loppupalautus "loppupalautus")
+[Loppupalautus jar](https://github.com/OttoLasma/ot-harjoitustyo/releases/tag/loppupalautus)
 
 <h2> Konfigurointi </h2> 
 
