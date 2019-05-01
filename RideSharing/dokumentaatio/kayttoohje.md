@@ -3,7 +3,7 @@
 
 <h2> Suorittamiseen tarvittava jar-tiedosto </h2>
 
-tähän linkki
+![Loppupalautus jar](https://github.com/OttoLasma/ot-harjoitustyo/releases/tag/loppupalautus "loppupalautus")
 
 <h2> Konfigurointi </h2> 
 
@@ -15,7 +15,7 @@ Käynnistämisen yhteydessä käyttäjää pyydetään nimeämään käytettäv�
 Ohjelma käynnistetään seuraavalla komennolla:
 
 ```
-java -jar ridesharing.jar
+java -jar Ridesharing2.jar
 ```
 
 <h2> Kirjautuminen/"tuntemattoman" käyttäjän näkymä </h2> 
