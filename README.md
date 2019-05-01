@@ -11,10 +11,13 @@ Sovelluksen tarkoitus on mahdollistaa kyytien lisäämisen ja toisaalta myös eh
 - [Työaikakirjapito](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/tyoaikakirjanpito.md)
 - [Arkkitehtuuri](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/arkkitehtuuri.md)
 - [Käyttöohje](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/kayttoohje.md)
+- [Testausdokumentti](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/testausdokumentti.md)
 
 <h2> Releaset </h2>
 
 - [Viikko 5](https://github.com/OttoLasma/ot-harjoitustyo/releases/tag/viikko5)
+
+- [Viikko 6](https://github.com/OttoLasma/ot-harjoitustyo/releases/tag/viikko6)
 
 - [Viikko 6](https://github.com/OttoLasma/ot-harjoitustyo/releases/tag/viikko6)
 
