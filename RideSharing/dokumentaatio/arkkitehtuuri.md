@@ -10,7 +10,7 @@ Pakkaus _riderharing.ui_ sisältää tekstikäyttöliittymän, sekä tietokantoj
 
 <h2> Käyttöliittymä </h2>
 
-Sovelluksessa on tosiaan tekstikäyttöliittymä, sillä en lukuisista yrityksistä huolimatta saanut spring:iin "yhteyttä", kun käytössä oli javaFX. Toteutettu tekstikäyttöliittymä pitää sisällään kaksi "näkymää", joista toinen on näkymä ennen kirjautumista ja toinen vastaavasti kirjautuneen käyttäjän näkymä. Käyttöliittymä on toteutettu ohjelmallisesti luokassa _ridesharing.ui.Interface_ (_aikaisempi ridesharing.ui.kokeiluKayttoliittyma_). 
+Sovelluksessa on tosiaan tekstikäyttöliittymä, sillä en lukuisista yrityksistä huolimatta saanut spring:iin "yhteyttä", kun käytössä oli javaFX. Toteutettu tekstikäyttöliittymä pitää sisällään kaksi "näkymää", joista toinen on näkymä ennen kirjautumista ja toinen vastaavasti kirjautuneen käyttäjän näkymä. Käyttöliittymä on toteutettu ohjelmallisesti luokassa _ridesharing.ui.TextUserInterface_. 
 
 Sovelluslogiikka on suurimmilta osin pystytty eristämään käyttöliittymästä, kutsumalla sovelluslogiikan toteuttamaa luokkaa _ridesharing.domain.RidesharingService_.
 
@@ -51,9 +51,9 @@ Yllä todettua havainnollistaaa alla oleva kuva pakkauskaaviosta:
 
 <h2> Tietojen tallentaminen tietokantaan </h2> 
 
-Yhteys luotuun tietokantaan muodostetaan samalla kun sovellus käynnistetään. Tietokantoujen hallinnoimisessa olen käyttänyt spring:iä ja tietokanta on itsessään on h2. Sovelluksen suorittaminen luo käynnistyshakemistoon tietokannan nimeltä: _RideSharingDatabases.mv.db_. Tietojen lisäämisestä, päivittämisestä, poistamisesta, muuttamisesta ja hakemisesta vastaavat pakkauseen _ridesharing.dao_ sijoitetut luokat _ReserveDao_, _RideDao_, sekä _UserDao_. 
+Yhteys luotuun tietokantaan muodostetaan samalla kun sovellus käynnistetään. Sovelluksen käyttäjää pyydetään sovelluksen käynnistämisen yhteydessä nimeämään tietokanta, jota tullaan sovelluksessa käyttämään. Tietojen lisäämisestä, päivittämisestä, poistamisesta, muuttamisesta ja hakemisesta vastaavat pakkauseen _ridesharing.dao_ sijoitetut luokat _ReserveDao_, _RideDao_, sekä _UserDao_. 
 
-Alla on esitettynä luodut tietokanta taulut (_huom. arvosteluperusteissa ei ole edellytetty kiinnittämään huomiota taulujen järkevään toteutukseen_):
+Alla on esitettynä luodut tietokanta taulut:
 
 ```
 DROP TABLE User IF EXISTS
@@ -78,49 +78,55 @@ Alla on listattuna yleisimmin käytetyt tietokantakyselyt koodimuodossa (esimerk
 
 - Uuden käyttäjän lisääminen:
 ```
-KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection -> {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO User"
-                    + " (name, surname, phone, email, username, password)"
-                    + " VALUES (?, ?, ?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getSurname());
-            stmt.setString(3, user.getPhone());
-            stmt.setString(4, user.getEmail());
-            stmt.setString(5, user.getUsername());
-            stmt.setString(6, user.getPassword());
-            return stmt;
-        }, keyHolder);
-        user.setId(keyHolder.getKey().intValue());
+String sql = "INSERT INTO USER(name, surname, phone, email, username, password) VALUES(?,?,?,?,?,?)";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, user.getName());
+        pstmt.setString(2, user.getSurname());
+        pstmt.setString(3, user.getPhone());
+        pstmt.setString(4, user.getEmail());
+        pstmt.setString(5, user.getUsername());
+        pstmt.setString(6, user.getPassword());
+        pstmt.executeUpdate();
+        String sql2 = "select last_insert_rowid()";
+        PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+        ResultSet rs = pstmt2.executeQuery();
+        user.setId(rs.getInt(1));
 ```
 - Tietyn käyttäjän hakeminen id:n perusteella
 ```
-User user = jdbcTemplate.queryForObject(
-                "SELECT * FROM User WHERE id = ?",
-                new BeanPropertyRowMapper<>(User.class),
-                key);
-
+String sql = "SELECT * FROM User WHERE id = " + key;
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        User user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("phone"), rs.getString("email"), rs.getString("username"), rs.getString("password"));
+        user.setId(rs.getInt("id"));
         return user;
 ```
 - Tietyn käyttäjän attribuuttien päivittäminen
 ```
-jdbcTemplate.update("UPDATE User SET name = ?, surname = ?, phone = ?, email = ?, username = ?, password = ? WHERE id = ?",
-                user.getName(),
-                user.getSurname(),
-                user.getPhone(),
-                user.getEmail(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getId());
-
+String sql = "UPDATE User SET name = ?, surname = ?, phone = ?, email = ?, username = ?, password = ? WHERE id = ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, user.getName());
+        pstmt.setString(2, user.getSurname());
+        pstmt.setString(3, user.getPhone());
+        pstmt.setString(4, user.getEmail());
+        pstmt.setString(5, user.getUsername());
+        pstmt.setString(6, user.getPassword());
+        pstmt.setInt(7, user.getId());
+        pstmt.executeUpdate();
         return user;
 ```
 - Kaikkien käyttäjien palauttaminen listana
 ```
-return jdbcTemplate.query(
-                "SELECT * FROM User",
-                new BeanPropertyRowMapper<>(User.class));
+String sql = "SELECT * FROM User";
+        List<User> users = new ArrayList<>();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            User user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("phone"), rs.getString("email"), rs.getString("username"), rs.getString("password"));
+            user.setId(rs.getInt("id"));
+            users.add(user);
+        }
+        return users;
 ```
 
 
