@@ -7,26 +7,7 @@ tähän linkki
 
 <h2> Konfigurointi </h2> 
 
-Sovellus edellyttää, että polussa:
-
-```
-src/main/resources 
-```
-
-on lisättynä _application.properties_ niminen tiedosto, jonka sisältö kokonaisuudessaan on seuraavanlainen:
-
-```
-spring.datasource.url=jdbc:h2:./RideSharingDatabases
-
-spring.datasource.driverClassName=org.h2.Driver
-
-spring.datasource.username=sa
-
-spring.datasource.password=
-
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-```
-
+Käynnistämisen yhteydessä käyttäjää pyydetään nimeämään käytettävän tietokannan nimi. Sovellus luo uuden tiedoston, mikäli nimettyä tietokantaa ei ole olemassa sovelluksen käynnistys vaiheessa.
 
 
 <h2> Ohjelman käynnistäminen </h2>
@@ -34,10 +15,15 @@ spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 Ohjelma käynnistetään seuraavalla komennolla:
 
 ```
-java -jar tiedostonnimi
+java -jar ridesharing.jar
 ```
 
 <h2> Kirjautuminen/"tuntemattoman" käyttäjän näkymä </h2> 
+
+Ensin käyttäjää pyydetään siis nimeämään käytettävä tietokanta.
+
+![Kirjautuminen](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/tietokannanNimeaminenjaAloitus.png "kirjautuminen")
+
 
 Tässä vaiheessa käyttäjälle on kolme mahdollisuutta edetä:
 
@@ -61,6 +47,8 @@ Kirjautumisessa käyttäjältä pyydetään aikaisemmin luotu käyttäjätunnus 
 Onnistunut kirjautuminen tai uuden käyttäjän luominen ohjaavat käyttäjän "kyytinäkymään".
 
 <h2> Kirjautuneen käyttäjän toiminnallisuudet </h2>
+
+![valinnat](https://github.com/OttoLasma/ot-harjoitustyo/blob/master/RideSharing/dokumentaatio/valinnat.png "valinnat")
 
 <h3> Kirjautuneella käyttäjällä on valittavissa seuraavat toiminnallisuudet: </h3>
 
@@ -94,6 +82,7 @@ Tässä käyttäjää pyydetään täyttämään kyydin yleiset tiedot, jotka ov
 
 - Tässä käyttäjälle listataan kaikki kyydit, jotka ovat käyttäjän itsensä varaamia.
 
+6. Käyttäjäle ilmoitetaan, kuinka monta kyytiä hän on ilmoittanut järjestelmään ja toisaalta, kuinka monta kyytiä on varannut järjestelmän kautta. 
 
 
 
