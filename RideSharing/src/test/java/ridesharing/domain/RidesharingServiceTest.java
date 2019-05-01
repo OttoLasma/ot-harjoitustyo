@@ -211,6 +211,33 @@ public class RidesharingServiceTest {
         assertTrue(usernameTest.equals("plahahah"));
         
     }
+    @Test
+    public void returnListOfUsersRidesTestUserIdFound()throws SQLException{
+        User user = new User("kofdavanen", "lasmfdaa", "4382094fas3", "fjdlafaksf", "fjkdafallaf", "jfdlfakfsa");
+        serviceDao.createUser(user);
+        Ride ride = new Ride("otto55fsa55", "lasma11", 2, 1, "fjkdallaf11", 1);
+        serviceDao.createRide(ride);
+        List<Ride> list = serviceDao.returnListofUsersRides(user.getId());
+        assertTrue(list.size() == 1);
+        
+    }
+    @Test
+    public void returnListOfUsersReservesTestUserIdFound()throws SQLException{
+        User user = new User("kovanen", "lasma", "43820943", "fjdljhaksf", "fjkdallfasaf", "jfdlkffasa");
+        serviceDao.createUser(user);
+        Reserve reserve = new Reserve("otto55fds55", "lasmafdajfs11", 2, 1, "fjkdaljflaf11", 1);
+        serviceDao.createReserve(reserve);
+        List<Reserve> list = serviceDao.returnListofUsersReserves(user.getId());
+        assertTrue(list.size() == 1);
+        
+    }
+    @Test
+    public void correctCredentialsGivenTest()throws SQLException{
+        User user = new User("otto", "lasma", "0458848862", "otto.lasma@aalto.fi", "ottafdola", "kfasala");
+        userDao.create(user);
+        int test = serviceDao.correctCredentials("ottafdola", "kfasala");
+        assertTrue(test == user.getId());
+    }
     
     
 
