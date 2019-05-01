@@ -32,7 +32,7 @@ Ohjeet jacoco -raportin suorittamiseen ja tieto raportin sijainti suhteessa juur
 
 Testaamatta jäivät tilanteen, jossa tietokantaan ei saada yhteyttä tai käyttäjältä vaadittaisiin syöte testauksen suorittamiseksi. 
 
-<h3> Testaukseen/sovellukseen liittyvät ongelmat <h3> 
+<h3> Testaukseen/sovellukseen liittyvät ongelmat </h3> 
   
   Käyttäjän syötteiden validointiin ei ole panostettu kovinkaan paljon ja tämä voidaan luokitella selkeäksi puutteeksi. Validointi on oikeastaan toteutettu lähinnä käyttäjän antamalle käyttäjätunnukselle, sekä salasanalle -tarkastamalla, että käyttäjätunnuksen tulee olla uniikka ja käyttäjä pääsee rekisteröitymään vain, mikäli tietokantataulusta User löytyy käyttäjän antama salasana, sekä käyttäjätunnus.
 
