@@ -57,7 +57,7 @@ Suoritetaan komennolla:
 ```
 mvn package
 ```
-generoi hakemistoon target suoritettavan jar-tiedoston original-RideSharing2-1.0-SNAPSHOT.jar (huom jar tiedoston nimi)
+generoi hakemistoon target suoritettavan jar-tiedoston RideSharing2-1.0-SNAPSHOT.jar 
 
 
 <h3> JavaDock </h3>
