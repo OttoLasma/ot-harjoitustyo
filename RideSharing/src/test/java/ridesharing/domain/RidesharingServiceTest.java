@@ -43,6 +43,11 @@ public class RidesharingServiceTest {
         filename = "jdbc:sqlite:testiService.db";
         
     }
+
+    /**
+     *creates connection to database
+     * @return
+     */
     public Connection getConnection() {
         if (conn == null) {
             String url = filename;
@@ -56,6 +61,9 @@ public class RidesharingServiceTest {
         return conn;
     }
 
+    /**
+     *create test environment
+     */
     @Before
     public void before() {
         conn = getConnection();
@@ -119,6 +127,11 @@ public class RidesharingServiceTest {
         }
         
     }
+
+    /**
+     *method tests whether method returnListofUsersReserves works properly
+     * @throws SQLException
+     */
     @Test
     public void returnListofUsersReservesTest()throws SQLException{
         User user = new User("otto", "lasma", "0458848862", "otto.lasma@aalto.fi", "ottola", "kala");
@@ -127,6 +140,11 @@ public class RidesharingServiceTest {
         List<Reserve> list = serviceDao.returnListofUsersReserves(userId);
         assertTrue(list.size() == 0);
     }
+
+    /**
+     *method tests whether correct amount rides are returned 
+     * @throws SQLException
+     */
     @Test
     public void returnListofUsersRidesTest()throws SQLException{
         User user = new User("otto", "lasma", "0458848862", "otto.lasma@aalto.fi", "ottola", "kala");
@@ -135,6 +153,11 @@ public class RidesharingServiceTest {
         List<Ride> list = serviceDao.returnListofUsersRides(userId);
         assertTrue(list.size() == 0);
     }
+
+    /**
+     *methdod returnListofAvailableRides tests whether correct amount of rides is returned and inserted to database 
+     * @throws SQLException
+     */
     @Test
     public void returnListofAvailableRidesTest()throws SQLException{
         Ride t1 = new Ride("helsinki", "tampere", 4, 3, "840925", 3);
@@ -143,6 +166,11 @@ public class RidesharingServiceTest {
         List<Ride> list = serviceDao.returnListofAvailableRides();
         assertTrue(list.size() == 1);
     }
+
+    /**
+     *method test whether method correctCredentials return error value when credentialsare not found
+     * @throws SQLException
+     */
     @Test
     public void correctCredentialsTest()throws SQLException{
         User user = new User("otto", "lasma", "0458848862", "otto.lasma@aalto.fi", "ottola", "kala");
@@ -151,6 +179,11 @@ public class RidesharingServiceTest {
         int test = serviceDao.correctCredentials("kako", "vaara");
         assertTrue(test == -10);
     }
+
+    /**
+     *method tests whether sendemail method works properly and send email to my email address
+     * @throws SQLException
+     */
     @Test
     public void sendEmail()throws SQLException{
         try {
@@ -202,6 +235,11 @@ public class RidesharingServiceTest {
         assertTrue(user.getName().equals(userTest.getName()));
         
     }
+
+    /**
+     *method checks whether unique username is returned 
+     * @throws SQLException
+     */
     @Test
     public void checkWhetherUsernameHasAlreadyBeenTakenTest()throws SQLException{
         User user = new User("kovanen", "lasma", "43820943", "fjdlaksf", "fjkdallaf", "jfdlkfsa");
@@ -211,6 +249,11 @@ public class RidesharingServiceTest {
         assertTrue(usernameTest.equals("plahahah"));
         
     }
+
+    /**
+     *tests whether method returnListofUsersRides returns correct rides 
+     * @throws SQLException
+     */
     @Test
     public void returnListOfUsersRidesTestUserIdFound()throws SQLException{
         User user = new User("kofdavanen", "lasmfdaa", "4382094fas3", "fjdlafaksf", "fjkdafallaf", "jfdlfakfsa");
@@ -221,6 +264,11 @@ public class RidesharingServiceTest {
         assertTrue(list.size() == 1);
         
     }
+
+    /**
+     *test whether returnlistofusersreserves returns correst rides 
+     * @throws SQLException
+     */
     @Test
     public void returnListOfUsersReservesTestUserIdFound()throws SQLException{
         User user = new User("kovanen", "lasma", "43820943", "fjdljhaksf", "fjkdallfasaf", "jfdlkffasa");
@@ -231,6 +279,11 @@ public class RidesharingServiceTest {
         assertTrue(list.size() == 1);
         
     }
+
+    /**
+     *method test whether correctCredentials return correct id when given credentials are correct
+     * @throws SQLException
+     */
     @Test
     public void correctCredentialsGivenTest()throws SQLException{
         User user = new User("otto", "lasma", "0458848862", "otto.lasma@aalto.fi", "ottafdola", "kfasala");
@@ -239,15 +292,20 @@ public class RidesharingServiceTest {
         assertTrue(test == user.getId());
     }
     
-    
-
-   
+    /**
+     *method deletes the used database file after testing has been finished
+     * @throws SQLException
+     */
     @After
     public void after() throws SQLException{
         File newFile = new File("testiService.db");
         newFile.delete();
         conn.close();
     }
+
+    /**
+     *method creates test environment
+     */
     @Test
     public void createTestEnvironment(){
         File newFile = new File("testiService.db");

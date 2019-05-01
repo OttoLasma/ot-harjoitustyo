@@ -35,6 +35,9 @@ public class RideDaoTest {
         filename = "jdbc:sqlite:testRide.db";
     }
     
+    /**
+     *method creates test environment
+     */
     @Before
     public void before() {
         conn = getConnection();
@@ -60,6 +63,11 @@ public class RideDaoTest {
         }
      
     }
+
+    /**
+     *method creates connection to database
+     * @return
+     */
     public Connection getConnection() {
         if (conn == null) {
             String url = filename;
@@ -73,18 +81,32 @@ public class RideDaoTest {
         return conn;
     }
     
+    /**
+     *method deletes used database file after testing has been finished
+     * @throws SQLException
+     */
     @After
     public void after() throws SQLException{
         File newFile = new File("testRide.db");
         newFile.delete();
         conn.close();
     }
+
+    /**
+     * method creates test environment
+     *
+     */
     @Test
     public void createTestEnvironmentTest(){
         File newFile = new File("testRide.db");
         boolean created = newFile.exists();
         assertTrue(created);
     }
+
+    /**
+     *method test 
+     * @throws SQLException
+     */
     @Test
     public void createNewRideSuccessfullyToDatabaseTest()throws SQLException{
         Ride ride = new Ride("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
@@ -98,6 +120,10 @@ public class RideDaoTest {
         
     }
     
+    /**
+     *method tests whether it is possible to create new rides and in the other hand whether that increases the rows in table ride
+     * @throws SQLException
+     */
     @Test
     public void createNewRideListSizeIncreasesTest()throws SQLException{
         Ride ride = new Ride("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
@@ -109,6 +135,11 @@ public class RideDaoTest {
         assertTrue((varibale2 - varibale) == 1);
         
     }
+
+    /**
+     *method test the update method after changing the departure location of ride
+     * @throws SQLException
+     */
     @Test
     public void updateWorksProperlyWhenMakingChangesTest()throws SQLException{
         Ride ride = new Ride("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
@@ -118,6 +149,11 @@ public class RideDaoTest {
         assertTrue(ride2.getDeparturelocation().equals("heija"));
         
     }
+
+    /**
+     *method tests whether the creation of ride works properly and also whether the attributes are correct
+     * @throws SQLException
+     */
     @Test
     public void createNewRideTestThatAttributesWorkCorrectlyTest()throws SQLException{
         Ride ride = new Ride("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);

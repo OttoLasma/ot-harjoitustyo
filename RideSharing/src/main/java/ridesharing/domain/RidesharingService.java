@@ -27,24 +27,24 @@ import org.apache.commons.mail.SimpleEmail;
  *
  * @author ottlasma
  */
-
 public class RidesharingService {
 
-    
     RideDao rideDao;
-    
+
     UserDao userDao;
-    
+
     ReserveDao reserveDao;
-    public RidesharingService(Connection conn){
+
+    public RidesharingService(Connection conn) {
         rideDao = new RideDao(conn);
         userDao = new UserDao(conn);
         reserveDao = new ReserveDao(conn);
     }
+
     /**
      * method asks username until user provides username that has not been added
      * to the databases. When valid username is given method returns this
-     * username.  
+     * username.
      *
      *
      * @param username
@@ -131,7 +131,9 @@ public class RidesharingService {
         List<User> listUsers = userDao.list();
         String userEmail = "";
         for (User user : listUsers) {
-            if (user.getId() == ride.getUserId()) { userEmail = user.getEmail(); }
+            if (user.getId() == ride.getUserId()) {
+                userEmail = user.getEmail();
+            }
         }
         boolean emailStatus = false;
         try {

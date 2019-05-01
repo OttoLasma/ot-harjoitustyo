@@ -33,6 +33,9 @@ public class ReserveDaoTest {
         filename = "jdbc:sqlite:testiReserve.db";
     }
     
+    /**
+     *creates test environment
+     */
     @Before
     public void before() {
         conn = getConnection();
@@ -58,6 +61,11 @@ public class ReserveDaoTest {
         }
      
     }
+
+    /**
+     *method creates connection to database where test values could be added
+     * @return
+     */
     public Connection getConnection() {
         if (conn == null) {
             String url = filename;
@@ -71,12 +79,20 @@ public class ReserveDaoTest {
         return conn;
     }
     
+    /**
+     *method deletes test database after testing has been done
+     * @throws SQLException
+     */
     @After
     public void after() throws SQLException{
         File newFile = new File("testiReserve.db");
         newFile.delete();
         conn.close();
     }
+
+    /**
+     *method creates test environment
+     */
     @Test
     public void createTestEnvironment(){
         File newFile = new File("testiReserve.db");
@@ -84,7 +100,10 @@ public class ReserveDaoTest {
         assertTrue(created);
     }
     
-    
+    /**
+     *method tests whether it is possible to add new values to database and in the other hand whether the size of list made from values increases after addition
+     * @throws SQLException
+     */
     @Test
     public void createNewReserveListSizeIncreasesTest()throws SQLException{
         Reserve reserve = new Reserve("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
@@ -96,6 +115,11 @@ public class ReserveDaoTest {
         assertTrue((varibale2 - varibale) == 1);
         
     }
+
+    /**
+     *method tests whether update method works properly after modifying the departure location of reserve
+     * @throws SQLException
+     */
     @Test
     public void updateWorksProperlyWhenMakingChangesTest()throws SQLException{
         Reserve reserve = new Reserve("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
@@ -105,6 +129,11 @@ public class ReserveDaoTest {
         assertTrue(reserve2.getDeparturelocation().equals("heija"));
         
     }
+
+    /**
+     *method test whether creation works properly in terms of all attributes
+     * @throws SQLException
+     */
     @Test
     public void createNewReserveTestThatAttributesWorkCorrectlyTest()throws SQLException{
         Reserve reserve = new Reserve("otto5555", "lasma11", 2, 1, "fjkdallaf11", 1);
