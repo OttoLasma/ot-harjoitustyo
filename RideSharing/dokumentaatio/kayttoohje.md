@@ -15,7 +15,7 @@ Käynnistämisen yhteydessä käyttäjää pyydetään nimeämään käytettäv�
 Ohjelma käynnistetään seuraavalla komennolla:
 
 ```
-java -jar Ridesharing2.jar
+java -jar Ridesharing.jar
 ```
 
 <h2> Kirjautuminen/"tuntemattoman" käyttäjän näkymä </h2> 
